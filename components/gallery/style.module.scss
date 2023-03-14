@@ -1,0 +1,72 @@
+.gallery-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  margin-left: -15px;
+
+  .card {
+    transition: all 0.1s ease-in-out;
+    transition: background-color 0;
+    border-radius: 10px;
+    overflow: hidden;
+
+    position: relative;
+    box-sizing: border-box;
+    margin-left: 30px;
+    margin-top: 20px;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    width: clamp(1%, calc(100% / 5), 100%);
+    padding-bottom: clamp(1%, calc(100% / 5), 100%);
+
+    @media only screen and (max-width: 1279px) {
+      width: clamp(1%, calc(100% / 4), 100%);
+      padding-bottom: clamp(1%, calc(100% / 4), 100%);
+    }
+
+    @media only screen and (max-width: 959px) {
+      width: clamp(1%, calc(100% / 3), 100%);
+      padding-bottom: clamp(1%, calc(100% / 3), 100%);
+    }
+
+    @media only screen and (max-width: 723px) {
+      width: clamp(1%, calc(100% / 2), 100%);
+      padding-bottom: clamp(1%, calc(100% / 2), 100%);
+    }
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+    }
+
+    h3 {
+      position: absolute;
+      display: flex;
+      height: 40px;
+      margin: 0;
+      padding-left: 10px;
+      align-items: center;
+    }
+
+    .chart_area {
+      position: absolute;
+      display: flex;
+      top: 40px;
+      width: 100%;
+      height: calc(100% - 40px);
+      align-items: center;
+      justify-content: center;
+
+      .chart {
+        width: 90%;
+        height: 90%;
+      }
+    }
+  }
+}

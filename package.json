@@ -1,0 +1,44 @@
+{
+  "name": "data-visualization-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "author": "WKE-Abner",
+  "scripts": {
+    "dev": "nodemon -e ts,js ./src/server.js NODE_ENV=development",
+    "build": "next build && next export",
+    "start": "node server.js NODE_ENV=production",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.11.10",
+    "@mui/utils": "^5.11.11",
+    "@next/font": "13.1.6",
+    "@textea/json-viewer": "^2.14.0",
+    "d3": "^7.8.2",
+    "d3-cloud": "^1.2.5",
+    "next": "13.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-pro-sidebar": "^1.0.0",
+    "express": "^4.18.2",
+    "swr": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.0",
+    "@types/express": "^4.17.17",
+    "@types/node": "18.14.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "prop-types": "^15.8.1",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.1.6",
+    "http-proxy-middleware": "^2.0.6",
+    "nodemon": "^2.0.21",
+    "sass": "^1.58.3",
+    "ts-node": "^10.9.1",
+    "typescript": "4.9.5"
+  }
+}
