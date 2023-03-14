@@ -1,5 +1,5 @@
-import Gallery from 'components/gallery';
-import Card from 'components/gallery/Card';
+import Gallery from '@Components/gallery';
+import Card from '@Components/gallery/Card';
 import {
   AreaChart,
   AreaStacked,
@@ -11,9 +11,9 @@ import {
   LineChart,
   ScatterChart,
   WordCloud,
-} from 'components/gallery/GalleryChart';
-import { useControlledRect } from 'components/gallery';
-import style from 'src/styles/home.module.css';
+} from '@Components/gallery/GalleryChart';
+import { useControlledRect } from '@Components/gallery';
+import style from '@/styles/home.module.css';
 
 export default function Home() {
   const { chartWidth, chartHeight, hoverAnimation } = useControlledRect();

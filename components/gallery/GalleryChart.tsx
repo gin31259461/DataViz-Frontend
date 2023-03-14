@@ -1,5 +1,5 @@
-import data from 'components/D3Chart/data/sample.json';
-import { D3_CHART } from 'components/D3Chart/chart';
+import data from '@D3Chart/data/sample.json';
+import { D3_CHART } from '@D3Chart/chart';
 
 export const AreaChart = (props: { width: number; height: number; enableAnimation: boolean }) => {
   return (

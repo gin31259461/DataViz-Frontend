@@ -1,10 +1,9 @@
-import dynamic from 'next/dynamic';
-const DashboardComponent = dynamic(() => import('components/dashboard/Dashboard'));
+import Dashboard from '@Components/dashboard/Dashboard';
 
 export default function MemberProfile() {
   return (
-    <DashboardComponent>
+    <Dashboard>
       <h1 style={{ paddingLeft: 20 }}>Building ...</h1>
-    </DashboardComponent>
+    </Dashboard>
   );
 }

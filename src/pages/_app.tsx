@@ -1,13 +1,13 @@
 import '@/styles/global.css';
 import type { AppProps } from 'next/app';
 import { CssBaseline, Theme, ThemeProvider } from '@mui/material';
-import { ColorModeContext, useMode } from 'components/theme';
+import { ColorModeContext, useMode } from '@Components/theme';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
-import Loader from 'components/loader';
+import Loader from '@Components/loader';
 import { useUser, userContext } from 'hooks/fetchUser';
 import Router from 'next/router';
-import Navbar from 'components/navbar';
+import Navbar from '@Components/navbar';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [theme, colorMode] = useMode();

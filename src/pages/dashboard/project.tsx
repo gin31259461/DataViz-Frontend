@@ -1,10 +1,10 @@
-import DashboardComponent from 'components/dashboard/Dashboard';
-import DashboardProject from 'components/dashboard/DashboardProject';
+import Dashboard from '@Components/dashboard/Dashboard';
+import DashboardProject from '@Components/dashboard/DashboardProject';
 
 export default function MemberData() {
   return (
-    <DashboardComponent>
+    <Dashboard>
       <DashboardProject></DashboardProject>
-    </DashboardComponent>
+    </Dashboard>
   );
 }
