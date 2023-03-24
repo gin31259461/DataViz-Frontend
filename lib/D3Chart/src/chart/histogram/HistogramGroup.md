@@ -1,3 +1,0 @@
-``` tsx
-  <HistogramGroup />
-```
