@@ -1,5 +1,5 @@
-import Dashboard from '@Components/dashboard/Dashboard';
-import DashboardProject from '@Components/dashboard/DashboardProject';
+import Dashboard from '@/components/dashboard/Dashboard';
+import DashboardProject from '@/components/dashboard/DashboardProject';
 
 export default function MemberData() {
   return (

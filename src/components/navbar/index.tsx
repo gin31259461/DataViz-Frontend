@@ -3,16 +3,16 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect, useContext } from 'react';
 
 import { useTheme, IconButton, Typography } from '@mui/material';
-import DataVizIcon from '@Components/icons/DataViz';
+import DataVizIcon from '@/assets/icons/DataViz';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
-import { tokens, ColorModeContext } from '@Components/theme';
-import { GetSplitLineStyle } from '@Components/theme/GetTheme';
-import { userContext } from '@Hooks/fetchUser';
+import { tokens, ColorModeContext } from '@/utils/theme';
+import { GetSplitLineStyle } from '@/utils/theme/getTheme';
+import { userContext } from '@/context/userContext';
 import style from './style.module.scss';
 
 export default function Navbar() {

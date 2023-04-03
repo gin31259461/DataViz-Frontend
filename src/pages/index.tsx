@@ -1,57 +1,55 @@
-import Gallery from '@Components/gallery';
-import Card from '@Components/gallery/Card';
-import {
-  AreaChart,
-  AreaStacked,
-  BarChart,
-  BarStacked,
-  BubbleChart,
-  Pie,
-  Donut,
-  LineChart,
-  ScatterChart,
-  WordCloud,
-} from '@Components/gallery/GalleryChart';
-import { useControlledRect } from '@Components/gallery';
-import style from '@/styles/home.module.css';
+import { LineChart } from '@D3Chart';
 
 export default function Home() {
-  const { chartWidth, chartHeight, hoverAnimation } = useControlledRect();
+  const data = [
+    {
+      "set1": 65,
+      "set2": 21,
+      "date": "2020-01-01"
+    },
+    {
+      "set1": 8,
+      "set2": 48,
+      "date": "2020-02-01"
+    },
+    {
+      "set1": 90,
+      "set2": 40,
+      "date": "2020-03-01"
+    },
+    {
+      "set1": 81,
+      "set2": 19,
+      "date": "2020-04-01"
+    },
+    {
+      "set1": 56,
+      "set2": 96,
+      "date": "2020-05-01"
+    },
+    {
+      "set1": 55,
+      "set2": 27,
+      "date": "2020-06-01"
+    },
+    {
+      "set1": 40,
+      "set2": 99,
+      "date": "2020-07-01"
+    }
+  ];
 
   return (
-    <div className={style['container']}>
-      <Gallery>
-        <Card id={'_chart_sample'} title={'Area Chart'} href={'/'}>
-          <AreaChart width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></AreaChart>
-        </Card>
-        <Card id={'_chart_sample'} title={'Area Stacked'} href={'/'}>
-          <AreaStacked width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></AreaStacked>
-        </Card>
-        <Card title={'Bar Group'} href={'/'}>
-          <BarChart width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></BarChart>
-        </Card>
-        <Card title={'Bar Stacked'} href={'/'}>
-          <BarStacked width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></BarStacked>
-        </Card>
-        <Card title={'Bubble Chart'} href={'/'}>
-          <BubbleChart width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></BubbleChart>
-        </Card>
-        <Card title={'Pie Chart'} href={'/'}>
-          <Pie width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></Pie>
-        </Card>
-        <Card title={'Donut Chart'} href={'/'}>
-          <Donut width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></Donut>
-        </Card>
-        <Card title={'Line Chart'} href={'/'}>
-          <LineChart width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></LineChart>
-        </Card>
-        <Card title={'Scatter Chart'} href={'/'}>
-          <ScatterChart width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></ScatterChart>
-        </Card>
-        <Card title={'Word Cloud'} href={'/'}>
-          <WordCloud width={chartWidth} height={chartHeight} enableAnimation={hoverAnimation[0]}></WordCloud>
-        </Card>
-      </Gallery>
+    <div>
+      <LineChart
+        data={data}
+        mapper={{
+          getX: (d: any) => d.date,
+          keys: ['set1', 'set2'],
+        }}
+        base={{title: "LineChart", width: undefined, height: 300}}
+      ></LineChart>
     </div>
   );
+
 }

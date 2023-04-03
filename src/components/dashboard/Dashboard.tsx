@@ -6,7 +6,7 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import { Sidebar, Menu, MenuItem, useProSidebar, ProSidebarProvider } from 'react-pro-sidebar';
 import { useState, useEffect, ReactNode } from 'react';
 import { useTheme, Box } from '@mui/material';
-import { tokens } from '@Components/theme';
+import { tokens } from '@/utils/theme';
 import Link from 'next/link';
 
 const ExpandIcon = (props: { expand: boolean }) => {

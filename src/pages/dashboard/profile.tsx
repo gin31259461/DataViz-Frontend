@@ -1,4 +1,4 @@
-import Dashboard from '@Components/dashboard/Dashboard';
+import Dashboard from '@/components/dashboard/Dashboard';
 
 export default function MemberProfile() {
   return (
