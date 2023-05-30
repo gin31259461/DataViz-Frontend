@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,9 +17,14 @@
     //"baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@D3Chart": ["./lib/D3Chart/dist/index.js"]
-    }
+      "@D3Chart": ["../d3chart/dist/index.js"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "temp"]
 }

@@ -1,153 +1,196 @@
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect, useContext } from 'react';
+"use client";
 
-import { useTheme, IconButton, Typography } from '@mui/material';
-import DataVizIcon from '@/assets/icons/DataViz';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-
-import { tokens, ColorModeContext } from '@/utils/theme';
-import { GetSplitLineStyle } from '@/utils/theme/getTheme';
-import { userContext } from '@/context/userContext';
-import style from './style.module.scss';
+import { useSplitLineStyle } from "@/hooks/useStyles";
+import style from "@/styles/navbar.module.scss";
+import styleStore from "@/styles/store.module.scss";
+import { ColorModeContext, tokens } from "@/utils/theme";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import { Button, useTheme } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Link from "next/link";
+import { useContext, useState } from "react";
+import CustomAvatar from "../Avatar";
+import DataVizIcon from "../DataVizIcon";
+import AccountMenu from "./AccountMenu";
+import Menu from "./Menu";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const avatarMenuOpen = Boolean(anchorEl);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-  const user = useContext(userContext);
-  const router = useRouter();
+
+  const itemList1 = [
+    "管理面板",
+    "新專案",
+    "用戶設置",
+    "反饋",
+    "登入/註冊",
+    "API 服務",
+  ];
+  const itemList2 = ["管理面板", "新專案"];
+  const itemLink1 = ["/mgt/data", "/project", "/", "/", "/", "/"];
+  const itemLink2 = ["/mgt/data", "/project"];
+  const [itemSelect, setItemSelect] = useState("");
 
   const handleClose = () => {
     setMenuOpen(false);
+    setItemSelect("");
   };
 
-  useEffect(() => {
-    const nav_menu = document.getElementById('_nav_menu');
+  const AvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    if (menuOpen) {
-      if (nav_menu !== null) {
-        nav_menu.style.transform = `translateY(0)`;
-        nav_menu.style.opacity = `1`;
-      }
-    } else {
-      if (nav_menu !== null) {
-        nav_menu.style.transform = `translateY(-406px)`;
-        nav_menu.style.opacity = `0`;
-      }
-    }
-  }, [menuOpen]);
+  const AvatarMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenuOpen = () => {
+    setMenuOpen((prev) => !prev);
+  };
 
   return (
-    <div className={style['container']}>
+    <div className={style["container"]}>
       <div
-        className={style['navbar-container']}
+        className={style["navbar-container"]}
         style={{
-          backgroundColor: theme.palette.mode === 'dark' ? 'rgb(20, 27, 45, 0.7)' : 'rgb(252, 252, 252, 0.8)',
-          borderBottom: `${GetSplitLineStyle()}`,
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? "rgb(20, 27, 45, 0.7)"
+              : "rgb(252, 252, 252, 0.8)",
+          borderBottom: `${useSplitLineStyle()}`,
         }}
       >
-        <div className={style['icon']}>
-          <Link href={'/'} className={style['link']} title={''}>
+        <div className={style["icon"]}>
+          <Link
+            onClick={handleClose}
+            href={"/"}
+            className={style["link"]}
+            title={""}
+          >
             <DataVizIcon color={colors.greenAccent[500]}></DataVizIcon>
           </Link>
         </div>
 
-        <h2 className={style['title']}>
-          <Link href={'/'} className={style['link']} title={''}>
+        <h2 className={style["title"]}>
+          <Link
+            onClick={handleClose}
+            href={"/"}
+            className={style["link"]}
+            title={""}
+          >
             Data Viz
           </Link>
         </h2>
 
-        <div className={style['toolbar']}>
-          <Typography fontSize={1} style={{ userSelect: 'none' }}>
-            已登入
-          </Typography>
-          <IconButton
-            onClick={() => {
-              router.push('/dashboard/project');
-            }}
-          >
-            <AccountCircleOutlinedIcon fontSize={'medium'}></AccountCircleOutlinedIcon>
-          </IconButton>
+        <div className={style["navMenu"]}>
+          {itemList2.map((item, i) => {
+            return (
+              <Link
+                className={styleStore["link"]}
+                key={i}
+                href={itemLink2[i]}
+                style={{
+                  marginLeft: 20,
+                  fontSize: 14,
+                  textShadow: "0 0 .5px",
+                  transition: "color .15s ease",
+                  color:
+                    itemSelect === item
+                      ? theme.palette.info.main
+                      : theme.palette.text.secondary,
+                }}
+                onClick={() => setItemSelect(item)}
+              >
+                {item}
+              </Link>
+            );
+          })}
+          <div className={style["navMenuSecond"]}>
+            <Button
+              sx={{ border: useSplitLineStyle(), textTransform: "none" }}
+              color="primary"
+            >
+              Feedback
+            </Button>
+            <Button
+              sx={{
+                border: useSplitLineStyle(),
+                textTransform: "none",
+                marginLeft: 1,
+              }}
+              color="primary"
+            >
+              Login
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ textTransform: "none", marginLeft: 1 }}
+              color="primary"
+            >
+              Sign up
+            </Button>
+          </div>
+        </div>
+
+        <div className={style["toolbar"]}>
           <IconButton onClick={() => colorMode.toggleColorMode()}>
-            {theme.palette.mode === 'dark' ? (
-              <DarkModeOutlinedIcon fontSize={'medium'}></DarkModeOutlinedIcon>
+            {theme.palette.mode === "dark" ? (
+              <DarkModeOutlinedIcon fontSize={"medium"}></DarkModeOutlinedIcon>
             ) : (
-              <LightModeOutlinedIcon fontSize={'medium'}></LightModeOutlinedIcon>
+              <LightModeOutlinedIcon
+                fontSize={"medium"}
+              ></LightModeOutlinedIcon>
             )}
           </IconButton>
           <IconButton
-            onClick={() => {
-              setMenuOpen((prev) => !prev);
-            }}
+            className={style["navMenuButton"]}
+            onClick={handleMenuOpen}
           >
             {menuOpen ? (
-              <CloseOutlinedIcon fontSize={'medium'}></CloseOutlinedIcon>
+              <CloseOutlinedIcon fontSize={"medium"}></CloseOutlinedIcon>
             ) : (
-              <MenuOutlinedIcon fontSize={'medium'}></MenuOutlinedIcon>
+              <MenuOutlinedIcon fontSize={"medium"}></MenuOutlinedIcon>
             )}
           </IconButton>
+          <IconButton
+            sx={{
+              width: 36,
+              height: 36,
+            }}
+            onClick={AvatarClick}
+          >
+            <CustomAvatar initials="Abner"></CustomAvatar>
+          </IconButton>
+          <AccountMenu
+            anchorEl={anchorEl}
+            open={avatarMenuOpen}
+            handleClose={AvatarMenuClose}
+            avatar={<CustomAvatar initials="Abner" />}
+          ></AccountMenu>
         </div>
       </div>
-      <div
-        className={style['menu']}
-        id="_nav_menu"
-        style={{
-          backgroundColor: theme.palette.mode === 'dark' ? colors.primary[500] : '#fcfcfc',
-          borderBottom: `${GetSplitLineStyle()}`,
-        }}
-      >
-        <nav className={style['menu_item']}>
-          <ul>
-            <li>
-              <Link onClick={handleClose} className={style['link']} href={'/'}>
-                <h4>圖表庫</h4>
-              </Link>
-            </li>
-            <li>
-              <Link onClick={handleClose} className={style['link']} href={'/'}>
-                <h4>瀏覽公開圖表</h4>
-              </Link>
-            </li>
-            <li>
-              <Link onClick={handleClose} className={style['link']} href={'/dashboard/project'}>
-                <h4>管理面板</h4>
-              </Link>
-            </li>
-            <li>
-              <Link onClick={handleClose} className={style['link']} href={'/'}>
-                <h4>註冊</h4>
-              </Link>
-            </li>
-            <li>
-              <Link onClick={handleClose} className={style['link']} href={'/'}>
-                <h4>登入</h4>
-              </Link>
-            </li>
-            <li>
-              <Link onClick={handleClose} className={style['link']} href={'/'}>
-                <h4>API 服務</h4>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
 
-      {menuOpen ? (
+      <Menu
+        items={itemList1}
+        itemLinks={itemLink1}
+        className={menuOpen ? style["navMenuOpen"] : style["navMenuClose"]}
+        onClose={handleClose}
+      ></Menu>
+
+      {menuOpen && (
         <div
-          className={style['backdrop']}
+          className={style["backdrop"]}
           onClick={() => {
             setMenuOpen(false);
           }}
         ></div>
-      ) : (
-        <></>
       )}
     </div>
   );

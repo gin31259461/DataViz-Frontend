@@ -36,5 +36,6 @@ yarn-error.log*
 next-env.d.ts
 
 # temp files
-temp
-lib
+/temp/
+/lib/
+/archive/
