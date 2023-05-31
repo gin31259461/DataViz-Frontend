@@ -23,7 +23,6 @@ import {
   Tooltip,
   useTheme,
 } from "@mui/material";
-import axios from "axios";
 import dynamic from "next/dynamic";
 import { Suspense, useCallback, useMemo, useState } from "react";
 import CardButton from "../CardButton";
@@ -136,12 +135,12 @@ export default function DataPanel(props: ServerProps) {
         FormData.append("lastID", (Number(lastObjectID.data) + 1).toString());
       } else FormData.append("lastID", "0");
 
-      await axios
-        .post(props.flaskServer + "/api/uploadCsv", FormData)
-        .then(() => {
-          setSubmitSuccess(true);
-          setMessage("Upload Successfully");
-        });
+      await fetch(`${props.flaskServer}/api/uploadCsv`, {
+        method: "POST",
+        body: FormData,
+      });
+      setSubmitSuccess(true);
+      setMessage("Upload Successfully");
     } catch (error) {
       setSubmitError(true);
       setMessage("Upload error, please try again later");
@@ -185,7 +184,7 @@ export default function DataPanel(props: ServerProps) {
       </Grid>
 
       <Grid container padding={2}>
-        <TableContainer sx={{ width: "100%", height: "calc(80vh - 80px)" }}>
+        <TableContainer>
           <Table>
             <TableHead
               sx={{

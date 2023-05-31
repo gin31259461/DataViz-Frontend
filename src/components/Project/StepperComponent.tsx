@@ -27,6 +27,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
   const target = useProjectStore((state) => state.target);
   const features = useProjectStore((state) => state.features);
+  const selectedPathID = useProjectStore((state) => state.selectedPathID);
 
   const backButtonDisabled = () => {
     if (activeStep !== 0) return false;
@@ -36,6 +37,9 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
   const nextButtonDisabled = () => {
     if (activeStep == 0 && selectedDataOID) return false;
     if (activeStep == 1 && target && features) return false;
+    if (activeStep == 2 && selectedPathID) return false;
+    if (activeStep == 3) return false;
+    if (activeStep == 4) return false;
     return true;
   };
 

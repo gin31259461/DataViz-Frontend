@@ -12,6 +12,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useTheme,
 } from "@mui/material";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import MultiSelect from "../MultiSelect";
@@ -34,6 +35,7 @@ const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
   data,
   onTypeChange,
 }) => {
+  const theme = useTheme();
   const target = useProjectStore((state) => state.target);
   const features = useProjectStore((state) => state.features);
   const setTarget = useProjectStore((state) => state.setTarget);
@@ -102,8 +104,13 @@ const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
         </TableHead>
         <TableBody>
           {data.map((row, i) => (
-            <TableRow key={row.id}>
-              <TableCell>
+            <TableRow
+              key={row.id}
+              sx={{
+                "&:hover": { backgroundColor: theme.palette.action.hover },
+              }}
+            >
+              <TableCell sx={{ maxWidth: 70 }}>
                 <Select
                   value={typeValue[i]}
                   onChange={(event) => handleTypeChange(row.id, i, event)}
@@ -112,10 +119,12 @@ const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
                   <MenuItem value="varchar">類別</MenuItem>
                 </Select>
               </TableCell>
-              <TableCell>{row.fieldName}</TableCell>
-              <TableCell>{row.tableName}</TableCell>
-              <TableCell>{row.dimension ? "維度" : "度量"}</TableCell>
-              <TableCell sx={{ maxWidth: 100 }}>
+              <TableCell sx={{ maxWidth: 70 }}>{row.fieldName}</TableCell>
+              <TableCell sx={{ maxWidth: 120 }}>{row.tableName}</TableCell>
+              <TableCell sx={{ maxWidth: 20 }}>
+                {row.dimension ? "維度" : "度量"}
+              </TableCell>
+              <TableCell sx={{ maxWidth: 120 }}>
                 {row.dimension ? (
                   <MultiSelect
                     options={row.distinctValue.split(",")}
@@ -123,7 +132,7 @@ const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
                   ></MultiSelect>
                 ) : null}
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ maxWidth: 60 }}>
                 {row.dimension ? (
                   <FormControlLabel
                     onChange={(event, checked) =>
