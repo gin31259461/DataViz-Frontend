@@ -32,6 +32,7 @@ const Slider: React.FC<SliderProps> = ({ components }) => {
         justifyContent: "center",
         flexDirection: "column",
         overflow: "hidden",
+        gap: 2,
       }}
     >
       {components.map((component, index) => (
@@ -61,7 +62,7 @@ const Slider: React.FC<SliderProps> = ({ components }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: 20,
+          gap: 2,
         }}
       >
         <Button
@@ -72,10 +73,7 @@ const Slider: React.FC<SliderProps> = ({ components }) => {
         >
           上一個
         </Button>
-        <Typography
-          variant="body1"
-          sx={{ marginLeft: "8px", marginRight: "8px" }}
-        >
+        <Typography variant="body1">
           第 {currentPage + 1} 頁 / 共 {components.length} 頁
         </Typography>
         <Button

@@ -9,7 +9,7 @@ export default function ProjectPage() {
     "Select data",
     "Analysis settings",
     "Select a path",
-    "Edit infographic",
+    "Infographic",
     "Last confirm",
     "All done!",
   ];
