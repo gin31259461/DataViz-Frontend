@@ -76,3 +76,19 @@ export const isValidCsvString = (str: string) => {
 
   return true;
 };
+
+export const objectToNumber = (
+  obj: Record<string, any>,
+): Record<string, number> => {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => [key, Number(value)]),
+  );
+};
+
+export const objectToXYData = (obj: Record<string, any>) => {
+  let xyData: Object[] = [];
+  Object.entries(obj).forEach(([key, value]) => {
+    xyData.push({ x: key, y: Number(value) });
+  });
+  return xyData;
+};

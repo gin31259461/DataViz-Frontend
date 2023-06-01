@@ -1,97 +1,68 @@
 "use client";
 
 import { useProjectStore } from "@/hooks/useProjectStore";
-import { BarGroup } from "@D3Chart";
+import { trpc } from "@/server/trpc";
+import { objectToXYData } from "@/utils/parsers";
+import { BarStacked } from "@D3Chart";
+import { Typography } from "@mui/material";
+import LoadingWithTitle from "../LoadingWithTitle";
 import Slider from "../Slider";
 
 const GenerateInfographic = () => {
+  const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
+  const target = useProjectStore((state) => state.target);
   const selectedPath = useProjectStore((state) => state.selectedPath);
-  console.log(selectedPath);
+  const nodes = trpc.analysis.getSplitDataFromPath.useQuery({
+    oid: selectedDataOID,
+    target: target,
+    decisionTreePath: {
+      path: selectedPath?.path,
+      nodeLabel: selectedPath?.nodeLabel,
+    },
+  });
 
-  let data = [
-    {
-      "2019": 65,
-      "2020": 21,
-      month: "January",
-    },
-    {
-      "2019": 8,
-      "2020": 48,
-      month: "February",
-    },
-    {
-      "2019": 90,
-      "2020": 40,
-      month: "March",
-    },
-    {
-      "2019": 81,
-      "2020": 19,
-      month: "April",
-    },
-    {
-      "2019": 56,
-      "2020": 96,
-      month: "May",
-    },
-    {
-      "2019": 55,
-      "2020": 27,
-      month: "June",
-    },
-    {
-      "2019": 40,
-      "2020": 99,
-      month: "July",
-    },
-  ];
-  return (
-    <Slider
-      components={[
-        <BarGroup
-          key={0}
-          data={data}
+  const infographic: React.ReactNode[] = [];
+  let currentNode: number;
+
+  selectedPath?.path.forEach((node, i) => {
+    if (!nodes.data) return;
+    else if (i == 0) {
+      currentNode = node;
+      return;
+    }
+
+    const nodeData = nodes.data[node];
+    const xyData = objectToXYData(nodeData[0]);
+
+    infographic.push(
+      <div>
+        <BarStacked
+          key={node}
+          data={xyData}
           mapper={{
-            getX: (d: any) => d.month,
-            keys: ["2019", "2020"],
+            getX: (d: any) => d.x,
+            keys: ["y"],
           }}
           base={{
             width: 1000,
             height: 300,
-            title: "BarGroup",
+            title: target ?? "",
             color: undefined,
           }}
-        />,
-        <BarGroup
-          key={1}
-          data={data}
-          mapper={{
-            getX: (d: any) => d.month,
-            keys: ["2019", "2020"],
-          }}
-          base={{
-            width: 1000,
-            height: 300,
-            title: "BarGroup",
-            color: undefined,
-          }}
-        />,
-        <BarGroup
-          key={2}
-          data={data}
-          mapper={{
-            getX: (d: any) => d.month,
-            keys: ["2019", "2020"],
-          }}
-          base={{
-            width: 1000,
-            height: 300,
-            title: "BarGroup",
-            color: undefined,
-          }}
-        />,
-      ]}
-    ></Slider>
+        />
+        <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+          {selectedPath.nodeLabel[currentNode] &&
+            selectedPath.nodeLabel[currentNode][1]}
+        </Typography>
+      </div>,
+    );
+    currentNode = node;
+  });
+
+  return nodes.isLoading ? (
+    <LoadingWithTitle title="Generating infographic" />
+  ) : (
+    <Slider components={infographic}></Slider>
   );
 };
 

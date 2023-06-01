@@ -85,7 +85,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
         sx={{
           display: "flex",
           flexGrow: 1,
-          height: "calc(85vh - 80px)",
+          height: "calc(75vh - 80px)",
           padding: 2,
         }}
       >
@@ -95,7 +95,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
         <Button
           disabled={backButtonDisabled()}
           color="info"
-          sx={{ fontSize: 15, left: 20 }}
+          sx={{ position: "absolute", fontSize: 15, left: 20 }}
           onClick={() => setActiveStep((prev) => (prev > 0 ? prev - 1 : prev))}
         >
           Back

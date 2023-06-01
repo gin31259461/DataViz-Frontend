@@ -1,3 +1,5 @@
+import { nodeDataProps } from "@/utils/findPath";
+import { convertBigIntToString } from "@/utils/parsers";
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
@@ -75,5 +77,56 @@ export const analysisRouter = createTRPCRouter({
         `SELECT * FROM ${columnDistinctValue}`,
       );
       return result[0];
+    }),
+  getSplitDataFromPath: publicProcedure
+    .input(
+      z.object({
+        oid: z.number().nullish(),
+        target: z.string().nullish(),
+        decisionTreePath: z.object({
+          path: z.array(z.number()).nullish(),
+          nodeLabel: z.record(z.string(), z.array(z.string())).nullish(),
+        }),
+      }),
+    )
+    .query(async ({ input, ctx }) => {
+      if (
+        !(
+          input.decisionTreePath.path &&
+          input.decisionTreePath.nodeLabel &&
+          input.oid &&
+          input.target
+        )
+      )
+        return [];
+
+      const path = input.decisionTreePath.path;
+      const nodeLabel = input.decisionTreePath.nodeLabel;
+
+      let currentQueryWhere = "";
+      let nodeData: nodeDataProps = {};
+
+      for (let i = 0; i + 1 < path.length; i++) {
+        const feature = nodeLabel[path[i]][0];
+        const condition1 = nodeLabel[path[i]][1];
+        const condition2 = nodeLabel[path[i]][2];
+        const query = `
+          select * from
+          (
+            select "${feature}", "${input.target}" from RawDB.dbo.D${input.oid}
+            where
+            ${condition2} ${currentQueryWhere}
+          ) as t
+          pivot (
+            sum("${input.target}")
+            for ${condition1}
+          ) as p
+        `;
+        currentQueryWhere += " and " + condition2;
+        const data = await ctx.prisma.$queryRawUnsafe<Object[]>(query);
+        const convertedData = data.map((obj) => convertBigIntToString(obj));
+        nodeData[path[i + 1]] = convertedData as Object[];
+      }
+      return nodeData;
     }),
 });

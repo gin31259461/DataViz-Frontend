@@ -1,8 +1,12 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 declare global {
   var prisma: PrismaClient | undefined;
 }
+
+export const prismaMethod = {
+  sql: Prisma.sql,
+};
 
 export const prisma =
   global.prisma ||

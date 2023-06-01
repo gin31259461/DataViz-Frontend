@@ -29,6 +29,8 @@ export interface DecisionTreeGraph {
   mappings: Record<string, Mapping>;
 }
 
+export type nodeDataProps = Record<number, Object[]>;
+
 export function findPaths(
   graph: DecisionTreeGraph,
   rootId: number = 0,
@@ -60,14 +62,15 @@ export function findPaths(
       /**
        * 如果下一個 Node ID 是上個 +1 則是 true，不然的話是 false
        */
-      for (let i = 0; i < path.length; i++) {
+      for (let i = 0; i + 1 < path.length; i++) {
         const nodeID = path[i];
-        if (graph.nodes[nodeID].labels.length == 4 && i + 1 < path.length) {
+        if (graph.nodes[nodeID].labels.length == 4) {
           const nextNodeID = path[i + 1];
           const conditionLabels = graph.nodes[nodeID].labels[0].split(" ");
-          let newFilter = "";
-          const type = conditionLabels[0];
-          if (!graph.mappings[type]) {
+          let newFilter = ``,
+            newFilterQuoted = "";
+          const feature = conditionLabels[0];
+          if (!graph.mappings[feature]) {
             const newLabels = [...graph.nodes[nodeID].labels];
             if (nodeID + 1 != nextNodeID) {
               const condition = newLabels[0];
@@ -80,20 +83,28 @@ export function findPaths(
           } else if (nodeID + 1 == nextNodeID) {
             // left edge => true
             const value = Math.floor(Number(conditionLabels[2]));
-            for (let i = value; i >= 0; i--)
-              newFilter += graph.mappings[type][i.toString()] + ",";
+            for (let i = value; i >= 0; i--) {
+              newFilter += `"` + graph.mappings[feature][i.toString()] + `",`;
+              newFilterQuoted +=
+                "'" + graph.mappings[feature][i.toString()] + "',";
+            }
           } else {
             // right edge => false
             const value = Math.ceil(Number(conditionLabels[2]));
             for (
               let i = value;
-              i < Object.values(graph.mappings[type]).length;
+              i < Object.values(graph.mappings[feature]).length;
               i++
-            )
-              newFilter += graph.mappings[type][i.toString()] + ",";
+            ) {
+              newFilter += `"` + graph.mappings[feature][i.toString()] + `",`;
+              newFilterQuoted +=
+                "'" + graph.mappings[feature][i.toString()] + "',";
+            }
           }
           nodeLabel[nodeID] = [
-            type + " in (" + newFilter.slice(0, -1) + ")",
+            feature,
+            feature + " in (" + newFilter.slice(0, -1) + ")",
+            feature + " in (" + newFilterQuoted.slice(0, -1) + ")",
             ...graph.nodes[nodeID].labels.slice(1),
           ];
         }

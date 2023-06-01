@@ -19,6 +19,7 @@ export default function SelectPath() {
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
   const target = useProjectStore((state) => state.target);
   const features = useProjectStore((state) => state.features);
+  const tableName = trpc.analysis.getTableName.useQuery(selectedDataOID);
   const graph = trpc.analysis.decisionTreeAnalysis.useQuery<DecisionTreeGraph>({
     oid: selectedDataOID,
     target: target,
@@ -27,7 +28,6 @@ export default function SelectPath() {
   const paths = findPaths(graph.data).sort(
     (a, b) => a.path.length - b.path.length,
   );
-  const selectedPathID = useProjectStore((state) => state.selectedPathID);
   const setPathID = useProjectStore((state) => state.setPathID);
   const setPath = useProjectStore((state) => state.setPath);
 
@@ -107,8 +107,11 @@ export default function SelectPath() {
           gap: 2,
           marginBottom: 2,
           justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
         }}
       >
+        <Typography>資料表 : {tableName.data?.CName}</Typography>
         <Typography>目標 : {target}</Typography>
         <Typography>特徵 : {features?.join(", ")}</Typography>
       </Box>
