@@ -7,9 +7,9 @@ import StepperComponent from "@/components/Project/StepperComponent";
 export default function ProjectPage() {
   const steps = [
     "Select data",
-    "Analysis settings",
-    "Select a path",
-    "Infographic",
+    "Column analysis",
+    "Path analysis",
+    "Path to infographic",
     "Last confirm",
     "All done!",
   ];

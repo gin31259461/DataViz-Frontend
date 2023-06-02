@@ -4,22 +4,15 @@ import { useProjectStore } from "@/hooks/useProjectStore";
 import { trpc } from "@/server/trpc";
 import { DecisionTreeGraph, findPaths } from "@/utils/findPath";
 import { roundNumberToDecimalPlaces } from "@/utils/math";
-import {
-  Box,
-  CircularProgress,
-  Divider,
-  FormControlLabel,
-  Radio,
-  Typography,
-} from "@mui/material";
+import { FormControlLabel, Radio } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import SortableTable from "../SortableTable";
+import LoadingWithTitle from "../LoadingWithTitle";
+import PathTable from "./PathTable";
 
 export default function SelectPath() {
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
   const target = useProjectStore((state) => state.target);
   const features = useProjectStore((state) => state.features);
-  const tableName = trpc.analysis.getTableName.useQuery(selectedDataOID);
   const graph = trpc.analysis.decisionTreeAnalysis.useQuery<DecisionTreeGraph>({
     oid: selectedDataOID,
     target: target,
@@ -60,16 +53,9 @@ export default function SelectPath() {
     return [
       i,
       o.path.length,
-      (roundNumberToDecimalPlaces(o.targetValueDistribution.low, 2) * 100)
-        .toFixed(0)
-        .toString() + "%",
-      (roundNumberToDecimalPlaces(o.targetValueDistribution.medium, 2) * 100)
-        .toFixed(0)
-        .toString() + "%",
-      (roundNumberToDecimalPlaces(o.targetValueDistribution.high, 2) * 100)
-        .toFixed(0)
-        .toString() + "%",
-
+      roundNumberToDecimalPlaces(o.targetValueDistribution.low, 2) * 100,
+      roundNumberToDecimalPlaces(o.targetValueDistribution.medium, 2) * 100,
+      roundNumberToDecimalPlaces(o.targetValueDistribution.high, 2) * 100,
       <FormControlLabel
         key={i}
         control={
@@ -87,36 +73,8 @@ export default function SelectPath() {
   });
 
   return graph.isLoading ? (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 2,
-      }}
-    >
-      <Typography variant="h3">Analyzing data ...</Typography>
-      <CircularProgress color="info" />
-    </Box>
+    <LoadingWithTitle title="Analyzing data"></LoadingWithTitle>
   ) : (
-    <Box sx={{ width: "100%", overflowX: "auto" }}>
-      <Box
-        sx={{
-          display: "flex",
-          gap: 2,
-          marginBottom: 2,
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <Typography>資料表 : {tableName.data?.CName}</Typography>
-        <Typography>目標 : {target}</Typography>
-        <Typography>特徵 : {features?.join(", ")}</Typography>
-      </Box>
-      <Divider />
-      <SortableTable columns={columns} rows={rows}></SortableTable>
-    </Box>
+    <PathTable columns={columns} rows={rows} paths={paths}></PathTable>
   );
 }

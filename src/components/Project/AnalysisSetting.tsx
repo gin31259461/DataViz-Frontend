@@ -3,7 +3,7 @@
 import { useProjectStore } from "@/hooks/useProjectStore";
 import { analysisResult } from "@/server/api/routers/analysis";
 import { trpc } from "@/server/trpc";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import LoadingWithTitle from "../LoadingWithTitle";
 import FieldInfoTable from "./FieldInfoTable";
 
 export default function AnalysisSetting() {
@@ -47,17 +47,6 @@ export default function AnalysisSetting() {
   return columnAnalysis.isSuccess ? (
     <FieldInfoTable data={fieldInfo} onTypeChange={() => {}}></FieldInfoTable>
   ) : (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 2,
-      }}
-    >
-      <Typography variant="h3">Analyzing columns ...</Typography>
-      <CircularProgress color="info" />
-    </Box>
+    <LoadingWithTitle title="Analyzing columns"></LoadingWithTitle>
   );
 }

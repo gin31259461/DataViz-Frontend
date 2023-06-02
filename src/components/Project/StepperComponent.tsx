@@ -3,6 +3,7 @@
 import { useProjectStore } from "@/hooks/useProjectStore";
 import { tokens } from "@/utils/theme";
 import {
+  Box,
   Button,
   Grid,
   Step,
@@ -72,7 +73,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
         <Stepper
           activeStep={activeStep}
           orientation="horizontal"
-          sx={{ ...stepStyle, paddingTop: 2, width: "100%" }}
+          sx={{ ...stepStyle, padding: 2, width: "100%" }}
         >
           {steps.map((label, index) => (
             <Step key={index}>
@@ -92,24 +93,30 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
         {components[activeStep]}
       </Grid>
       <Grid container>
-        <Button
-          disabled={backButtonDisabled()}
-          color="info"
-          sx={{ position: "absolute", fontSize: 15, left: 20 }}
-          onClick={() => setActiveStep((prev) => (prev > 0 ? prev - 1 : prev))}
-        >
-          Back
-        </Button>
-        <Button
-          disabled={nextButtonDisabled()}
-          color="info"
-          sx={{ position: "absolute", fontSize: 15, right: 20 }}
-          onClick={() =>
-            setActiveStep((prev) => (prev < steps.length - 1 ? prev + 1 : prev))
-          }
-        >
-          Next
-        </Button>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            disabled={backButtonDisabled()}
+            color="info"
+            sx={{ position: "absolute", fontSize: 15, left: 20 }}
+            onClick={() =>
+              setActiveStep((prev) => (prev > 0 ? prev - 1 : prev))
+            }
+          >
+            Back
+          </Button>
+          <Button
+            disabled={nextButtonDisabled()}
+            color="info"
+            sx={{ position: "absolute", fontSize: 15, right: 20 }}
+            onClick={() =>
+              setActiveStep((prev) =>
+                prev < steps.length - 1 ? prev + 1 : prev,
+              )
+            }
+          >
+            Next
+          </Button>
+        </Box>
       </Grid>
     </Grid>
   );
