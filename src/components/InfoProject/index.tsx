@@ -1,7 +1,7 @@
 "use client";
 
 import { useSplitLineStyle } from "@/hooks/useStyles";
-import alpha2HexString from "@/utils/alpha2HexString";
+import alphaToHexString from "@/utils/alphaToHexString";
 import AddIcon from "@mui/icons-material/Add";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ListIcon from "@mui/icons-material/List";
@@ -141,7 +141,7 @@ export default function InfoProject({ projects }: ProjectListProps) {
                     },
                     backgroundColor:
                       activeID === project.id
-                        ? theme.palette.info.main + alpha2HexString(15)
+                        ? theme.palette.info.main + alphaToHexString(15)
                         : "none",
                   }}
                 >

@@ -1,4 +1,4 @@
-import { useProjectStore } from "@/hooks/useProjectStore";
+import { useProjectStore } from "@/hooks/store/useProjectStore";
 import { trpc } from "@/server/trpc";
 import { DecisionTreePath } from "@/utils/findPath";
 import { tokens } from "@/utils/theme";
@@ -227,13 +227,14 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
                       <HtmlTooltip
                         key={j}
                         title={paths[i].path.map((nodeID, k) => {
+                          const currentNodeID = paths[i].path[k - 1];
                           return (
                             <Typography key={k}>
-                              {"node " + nodeID + " : "}
-                              {k == paths[i].path.length - 1
-                                ? "end node"
-                                : paths[i].nodeLabel[nodeID] &&
-                                  paths[i].nodeLabel[nodeID][1]}
+                              {"Node " + nodeID + " : "}
+                              {k > 0
+                                ? paths[i].nodeLabel[currentNodeID] &&
+                                  paths[i].nodeLabel[currentNodeID][1]
+                                : "Root"}
                             </Typography>
                           );
                         })}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserStore } from "@/hooks/useUser";
+import { useUserStore } from "@/hooks/store/useUserStore";
 import { trpc } from "@/server/trpc";
 import { tokens } from "@/utils/theme";
 import AddIcon from "@mui/icons-material/Add";

@@ -1,19 +1,19 @@
 "use client";
 
-import { useProjectStore } from "@/hooks/useProjectStore";
+import { useProjectStore } from "@/hooks/store/useProjectStore";
 import { trpc } from "@/server/trpc";
-import { DecisionTreeGraph, findPaths } from "@/utils/findPath";
+import { findPaths } from "@/utils/findPath";
 import { roundNumberToDecimalPlaces } from "@/utils/math";
 import { FormControlLabel, Radio } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import LoadingWithTitle from "../LoadingWithTitle";
 import PathTable from "./PathTable";
 
-export default function SelectPath() {
+export default function PathAnalysis() {
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
   const target = useProjectStore((state) => state.target);
   const features = useProjectStore((state) => state.features);
-  const graph = trpc.analysis.decisionTreeAnalysis.useQuery<DecisionTreeGraph>({
+  const graph = trpc.analysis.decisionTreeAnalysis.useQuery({
     oid: selectedDataOID,
     target: target,
     features: features,
@@ -23,9 +23,10 @@ export default function SelectPath() {
   );
   const setPathID = useProjectStore((state) => state.setPathID);
   const setPath = useProjectStore((state) => state.setPath);
+  const selectedPathID = useProjectStore((state) => state.selectedPathID);
 
   const [ratioChecked, setRatioChecked] = useState<string | undefined>(
-    undefined,
+    selectedPathID,
   );
 
   const handleRatioChange = (

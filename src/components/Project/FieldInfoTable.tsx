@@ -1,4 +1,4 @@
-import { useProjectStore } from "@/hooks/useProjectStore";
+import { useProjectStore } from "@/hooks/store/useProjectStore";
 import {
   Checkbox,
   FormControlLabel,

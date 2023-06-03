@@ -1,7 +1,7 @@
 "use client";
 
-import { useProjectStore } from "@/hooks/useProjectStore";
-import { useUserStore } from "@/hooks/useUser";
+import { useProjectStore } from "@/hooks/store/useProjectStore";
+import { useUserStore } from "@/hooks/store/useUserStore";
 import { trpc } from "@/server/trpc";
 import { Box, LinearProgress } from "@mui/material";
 import AutoCompleteSelect from "../AutoCompleteSelect";
@@ -16,7 +16,7 @@ export default function SelectData() {
 
   const handleSelectChange = (value: string) => {
     if (allData.isSuccess) {
-      setDataOID(allData.data[Number(value.split(" :")[0])].OID);
+      setDataOID(Number(value.split(".")[0]));
     }
   };
 
@@ -30,8 +30,7 @@ export default function SelectData() {
     >
       <AutoCompleteSelect
         options={
-          allData.data?.map((d, i) => i.toString() + " : " + d.CName ?? "") ??
-          []
+          allData.data?.map((d, i) => d.OID.toString() + ". " + d.CName) ?? []
         }
         initialValueIndex={
           allData.data?.findIndex((d) => d.OID == selectedDataOID) ?? 0

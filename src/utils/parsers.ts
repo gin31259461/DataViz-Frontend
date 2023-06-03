@@ -1,3 +1,5 @@
+import { roundNumberToDecimalPlaces } from "./math";
+
 export const convertBigIntToString = (obj: any): unknown => {
   if (typeof obj !== "object" || obj === null) {
     return obj;
@@ -91,4 +93,12 @@ export const objectToXYData = (obj: Record<string, any>) => {
     xyData.push({ x: key, y: Number(value) });
   });
   return xyData;
+};
+
+export const numberToStringPercentage = (percentage: number | undefined) => {
+  if (!percentage) return "";
+  return (
+    (roundNumberToDecimalPlaces(percentage, 2) * 100).toFixed(0).toString() +
+    "%"
+  );
 };

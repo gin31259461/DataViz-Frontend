@@ -1,12 +1,12 @@
 "use client";
 
-import { useProjectStore } from "@/hooks/useProjectStore";
+import { useProjectStore } from "@/hooks/store/useProjectStore";
 import { analysisResult } from "@/server/api/routers/analysis";
 import { trpc } from "@/server/trpc";
 import LoadingWithTitle from "../LoadingWithTitle";
 import FieldInfoTable from "./FieldInfoTable";
 
-export default function AnalysisSetting() {
+export default function ColumnAnalysis() {
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
   const tableName = trpc.analysis.getTableName.useQuery(selectedDataOID);
   const columnAnalysis = trpc.analysis.columnAnalysis.useQuery(selectedDataOID);

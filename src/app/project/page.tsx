@@ -1,23 +1,27 @@
-import AnalysisSetting from "@/components/Project/AnalysisSetting";
+import AllCompleted from "@/components/Project/AllCompleted";
+import ColumnAnalysis from "@/components/Project/ColumnAnalysis";
 import GenerateInfographic from "@/components/Project/GenerateInfographic";
+import PathAnalysis from "@/components/Project/PathAnalysis";
 import SelectData from "@/components/Project/SelectData";
-import SelectPath from "@/components/Project/SelectPath";
 import StepperComponent from "@/components/Project/StepperComponent";
+import Summary from "@/components/Project/Summary";
 
 export default function ProjectPage() {
   const steps = [
     "Select data",
     "Column analysis",
     "Path analysis",
-    "Path to infographic",
-    "Last confirm",
-    "All done!",
+    "Generate infographic",
+    "Summary analysis",
+    "Completed",
   ];
   const components = [
     <SelectData key={0} />,
-    <AnalysisSetting key={1} />,
-    <SelectPath key={2} />,
+    <ColumnAnalysis key={1} />,
+    <PathAnalysis key={2} />,
     <GenerateInfographic key={3} />,
+    <Summary key={4} />,
+    <AllCompleted key={5} />,
   ];
   return (
     <StepperComponent steps={steps} components={components}></StepperComponent>

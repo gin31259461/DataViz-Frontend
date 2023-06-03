@@ -1,6 +1,6 @@
 "use client";
 
-import { useProjectStore } from "@/hooks/useProjectStore";
+import { useProjectStore } from "@/hooks/store/useProjectStore";
 import { tokens } from "@/utils/theme";
 import {
   Box,
@@ -11,6 +11,7 @@ import {
   Stepper,
   useTheme,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface StepperComponentProps {
@@ -29,6 +30,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
   const target = useProjectStore((state) => state.target);
   const features = useProjectStore((state) => state.features);
   const selectedPathID = useProjectStore((state) => state.selectedPathID);
+  const router = useRouter();
 
   const backButtonDisabled = () => {
     if (activeStep !== 0) return false;
@@ -41,6 +43,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
     if (activeStep == 2 && selectedPathID) return false;
     if (activeStep == 3) return false;
     if (activeStep == 4) return false;
+    if (activeStep == 5) return false;
     return true;
   };
 
@@ -101,6 +104,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
             onClick={() =>
               setActiveStep((prev) => (prev > 0 ? prev - 1 : prev))
             }
+            variant="outlined"
           >
             Back
           </Button>
@@ -108,13 +112,16 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
             disabled={nextButtonDisabled()}
             color="info"
             sx={{ position: "absolute", fontSize: 15, right: 20 }}
-            onClick={() =>
+            onClick={() => {
+              if (activeStep === steps.length - 1)
+                router.push("/mgt/infographic");
               setActiveStep((prev) =>
                 prev < steps.length - 1 ? prev + 1 : prev,
-              )
-            }
+              );
+            }}
+            variant={activeStep !== steps.length - 1 ? "outlined" : "contained"}
           >
-            Next
+            {activeStep !== steps.length - 1 ? "Next" : "Confirm"}
           </Button>
         </Box>
       </Grid>

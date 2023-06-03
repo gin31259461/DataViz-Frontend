@@ -1,92 +1,73 @@
-import { Box, Button, Slide, Typography } from "@mui/material";
+import { useSplitLineStyle } from "@/hooks/useStyles";
+import { Box, Paper, Slide, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 
-type SliderProps = {
-  components: React.ReactNode[];
+export type TabItem = {
+  label: string;
+  content: React.ReactNode;
 };
 
-const Slider: React.FC<SliderProps> = ({ components }) => {
-  const [currentPage, setCurrentPage] = useState(0);
+interface TabProps {
+  tabs: TabItem[];
+}
+
+const TabSlider: React.FC<TabProps> = ({ tabs }) => {
+  const [activeTab, setActiveTab] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "left" | "right" | "up" | "down"
   >("left");
+  const borderStyle = useSplitLineStyle();
 
-  const handleNext = () => {
-    setCurrentPage((prevPage) =>
-      prevPage < components.length - 1 ? prevPage + 1 : prevPage,
-    );
-    setSlideDirection("left");
-  };
-
-  const handlePrevious = () => {
-    setCurrentPage((prevPage) => (prevPage > 0 ? prevPage - 1 : prevPage));
-    setSlideDirection("right");
+  const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
+    if (activeTab > newValue) setSlideDirection("right");
+    else if (activeTab < newValue) setSlideDirection("left");
+    setActiveTab(newValue);
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        overflow: "hidden",
-        gap: 2,
-      }}
-    >
-      {components.map((component, index) => (
-        <Slide
-          key={index}
-          direction={slideDirection}
-          in={index === currentPage}
-          mountOnEnter
-          unmountOnExit
-          timeout={500}
-          hidden={index !== currentPage}
+    <Box sx={{ flexGrow: 1 }}>
+      <Paper square sx={{ border: borderStyle, borderRadius: 2 }}>
+        <Tabs
+          value={activeTab}
+          onChange={handleChangeTab}
+          aria-label="Tab Navigation"
+          variant="scrollable"
+          textColor="secondary"
+          indicatorColor="secondary"
+          scrollButtons="auto"
         >
+          {tabs.map((tab, index) => (
+            <Tab key={index} label={tab.label} />
+          ))}
+        </Tabs>
+      </Paper>
+      {tabs.map((tab, i) => {
+        return (
           <Box
+            key={i}
             sx={{
-              display: index === currentPage ? "flex" : "none",
-              alignItems: "center",
+              mt: 2,
+              display: i === activeTab ? "flex" : "none",
               justifyContent: "center",
-              flexGrow: 1,
+              alignItems: "center",
+              padding: 2,
+              overflow: "hidden",
             }}
           >
-            {component}
+            <Slide
+              direction={slideDirection}
+              in={activeTab == i}
+              mountOnEnter
+              unmountOnExit
+              timeout={500}
+            >
+              <Box>{tab.content}</Box>
+            </Slide>
           </Box>
-        </Slide>
-      ))}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 2,
-        }}
-      >
-        <Button
-          variant="outlined"
-          onClick={handlePrevious}
-          color="info"
-          disabled={currentPage === 0}
-        >
-          上一個
-        </Button>
-        <Typography variant="body1">
-          第 {currentPage + 1} 頁 / 共 {components.length} 頁
-        </Typography>
-        <Button
-          variant="outlined"
-          onClick={handleNext}
-          color="info"
-          disabled={currentPage === components.length - 1}
-        >
-          下一個
-        </Button>
-      </Box>
+        );
+      })}
     </Box>
   );
 };
 
-export default Slider;
+export default TabSlider;

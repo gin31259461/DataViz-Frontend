@@ -1,4 +1,4 @@
-export default function alpha2HexString(percentage: number): string {
+export default function alphaToHexString(percentage: number): string {
   // 確保百分比在 0 到 100 之間
   const validPercentage = Math.max(0, Math.min(100, percentage));
 
