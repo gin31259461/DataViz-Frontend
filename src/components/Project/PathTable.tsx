@@ -143,14 +143,7 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
         </Collapse>
       </Box>
       <Table>
-        <TableHead
-          sx={{
-            position: "sticky",
-            top: 0,
-            backgroundColor: theme.palette.background.default,
-            zIndex: 10,
-          }}
-        >
+        <TableHead>
           <TableRow>
             {columns.map((column, i) => {
               return (

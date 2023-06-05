@@ -1,6 +1,7 @@
 "use client";
 
 import { useProjectStore } from "@/hooks/store/useProjectStore";
+import { useSplitLineStyle } from "@/hooks/useStyles";
 import { tokens } from "@/utils/theme";
 import {
   Box,
@@ -31,6 +32,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
   const features = useProjectStore((state) => state.features);
   const selectedPathID = useProjectStore((state) => state.selectedPathID);
   const router = useRouter();
+  const borderStyle = useSplitLineStyle();
 
   const backButtonDisabled = () => {
     if (activeStep !== 0) return false;
@@ -66,64 +68,72 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
   };
 
   return (
-    <Grid
-      container
-      sx={{
-        height: "calc(100vh - 80px)",
-      }}
-    >
-      <Grid container sx={{ display: "flex", justifyContent: "center" }}>
-        <Stepper
-          activeStep={activeStep}
-          orientation="horizontal"
-          sx={{ ...stepStyle, padding: 2, width: "100%" }}
-        >
-          {steps.map((label, index) => (
-            <Step key={index}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+    <Grid container>
+      <Grid
+        container
+        sx={{
+          backgroundColor: theme.palette.background.paper,
+          padding: 2,
+          height: 140,
+          borderBottom: borderStyle,
+        }}
+      >
+        <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+          <Stepper
+            activeStep={activeStep}
+            orientation="horizontal"
+            sx={{ ...stepStyle, width: "100%" }}
+          >
+            {steps.map((label, index) => (
+              <Step key={index}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Grid>
+        <Grid container>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Button
+              disabled={backButtonDisabled()}
+              color="info"
+              sx={{ position: "absolute", fontSize: 15, left: 20 }}
+              onClick={() =>
+                setActiveStep((prev) => (prev > 0 ? prev - 1 : prev))
+              }
+              variant="outlined"
+            >
+              Back
+            </Button>
+            <Button
+              disabled={nextButtonDisabled()}
+              color="info"
+              sx={{ position: "absolute", fontSize: 15, right: 20 }}
+              onClick={() => {
+                if (activeStep === steps.length - 1)
+                  router.push("/mgt/infographic");
+                setActiveStep((prev) =>
+                  prev < steps.length - 1 ? prev + 1 : prev,
+                );
+              }}
+              variant={
+                activeStep !== steps.length - 1 ? "outlined" : "contained"
+              }
+            >
+              {activeStep !== steps.length - 1 ? "Next" : "Confirm"}
+            </Button>
+          </Box>
+        </Grid>
       </Grid>
       <Grid
+        container
         sx={{
           display: "flex",
-          flexGrow: 1,
-          height: "calc(75vh - 80px)",
           padding: 2,
+          height: "calc(100vh - 140px - 80px)",
+          overflowX: "auto",
         }}
       >
         {components[activeStep]}
-      </Grid>
-      <Grid container>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Button
-            disabled={backButtonDisabled()}
-            color="info"
-            sx={{ position: "absolute", fontSize: 15, left: 20 }}
-            onClick={() =>
-              setActiveStep((prev) => (prev > 0 ? prev - 1 : prev))
-            }
-            variant="outlined"
-          >
-            Back
-          </Button>
-          <Button
-            disabled={nextButtonDisabled()}
-            color="info"
-            sx={{ position: "absolute", fontSize: 15, right: 20 }}
-            onClick={() => {
-              if (activeStep === steps.length - 1)
-                router.push("/mgt/infographic");
-              setActiveStep((prev) =>
-                prev < steps.length - 1 ? prev + 1 : prev,
-              );
-            }}
-            variant={activeStep !== steps.length - 1 ? "outlined" : "contained"}
-          >
-            {activeStep !== steps.length - 1 ? "Next" : "Confirm"}
-          </Button>
-        </Box>
       </Grid>
     </Grid>
   );

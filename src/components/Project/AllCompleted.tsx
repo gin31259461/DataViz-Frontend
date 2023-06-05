@@ -8,9 +8,9 @@ const AllCompleted = () => {
     <Box
       sx={{
         display: "flex",
+        width: "100%",
         justifyContent: "center",
         alignItems: "center",
-        width: "100%",
         gap: 2,
       }}
     >
