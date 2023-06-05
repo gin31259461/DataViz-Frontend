@@ -94,7 +94,9 @@ const Summary = () => {
         {summary.map((paper, i) => {
           return (
             <Grow key={i} in={true} timeout={i * 500}>
-              <Box sx={{ border: borderStyle, borderRadius: 2 }}>{paper}</Box>
+              <Box sx={{ border: borderStyle, borderRadius: 2, width: "100%" }}>
+                {paper}
+              </Box>
             </Grow>
           );
         })}

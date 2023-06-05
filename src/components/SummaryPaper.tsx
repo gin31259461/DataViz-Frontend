@@ -13,7 +13,6 @@ const SummaryPaper: React.FC<SummaryPaperProps> = ({ title, children }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          maxWidth: 300,
           gap: 2,
         }}
       >
