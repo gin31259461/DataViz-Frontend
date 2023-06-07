@@ -47,7 +47,7 @@ interface DataSchema {
 }
 
 interface ServerProps {
-  flaskServer: string;
+  uploadServer: string;
 }
 
 export default function DataPanel(props: ServerProps) {
@@ -135,7 +135,7 @@ export default function DataPanel(props: ServerProps) {
         FormData.append("lastID", (Number(lastObjectID.data) + 1).toString());
       } else FormData.append("lastID", "0");
 
-      await fetch(`${props.flaskServer}/api/uploadCsv`, {
+      await fetch(`${props.uploadServer}/api/uploadCsv`, {
         method: "POST",
         body: FormData,
       });

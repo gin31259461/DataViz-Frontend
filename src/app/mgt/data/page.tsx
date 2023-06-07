@@ -12,7 +12,7 @@ export default function DataPage() {
         <Dashboard>
           <div style={{ width: "100%" }}>
             <Suspense fallback={<Loader />}>
-              <DataPanel flaskServer={flaskServer}></DataPanel>
+              <DataPanel uploadServer={flaskServer}></DataPanel>
             </Suspense>
           </div>
         </Dashboard>

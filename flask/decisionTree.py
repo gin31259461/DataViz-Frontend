@@ -3,6 +3,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
+from sklearn.multiclass import OneVsOneClassifier
 from graphviz import Source
 import json
 
@@ -61,13 +62,13 @@ def csvDataFrameToDecisionTree(data: pd.DataFrame, target: str, features: list):
     # best_ccp_alpha = ccp_alphas[np.argmax(test_scores)]
     # # ---------------------------------------- end
 
-    clf = DecisionTreeClassifier(
+    clf = (DecisionTreeClassifier(
         criterion="entropy",
         random_state=42,
         max_depth=max_depth,
         min_samples_leaf=3,
         # ccp_alpha=best_ccp_alpha,  # Cost-Complexity Pruning
-    )
+    ))
     clf.fit(data_feature, data_target)
 
     dotData = tree.export_graphviz(

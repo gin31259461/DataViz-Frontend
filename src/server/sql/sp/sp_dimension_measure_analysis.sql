@@ -32,7 +32,7 @@ BEGIN
   SELECT *
   FROM (
     SELECT *,
-      convert(REAL, Kn) / N AS Ratio
+      CONVERT(DECIMAL(12, 10), (CONVERT(REAL, Kn) / N)) AS Ratio
     FROM bd_AnalyzeTableColumn
     WHERE TableName = '''
     + @tableName + '''
@@ -54,7 +54,7 @@ BEGIN
   SELECT *
   FROM vd_D' + @OID +
     '_ColumnAnalysis
-  WHERE DataType = ''varchar'' OR Ratio < 0.01
+  WHERE DataType = ''varchar'' OR CONVERT(REAL, Ratio) < 0.01
 '
 
   EXEC (@sqlStr)
@@ -69,7 +69,7 @@ BEGIN
   SELECT *
   FROM vd_D' + @OID +
     '_ColumnAnalysis
-  WHERE DataType like ''%int'' AND Ratio >= 0.01
+  WHERE DataType like ''%int'' AND CONVERT(REAL, Ratio) >= 0.01
 	'
 
   EXEC (@sqlStr)
