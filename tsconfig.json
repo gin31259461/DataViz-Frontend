@@ -1,25 +1,33 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "lib": ["dom", "dom.iterable", "es2020"],
-    "allowJs": true,
-    "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "esModuleInterop": true,
+    "allowJs": true,
+    "jsx": "preserve",
     "module": "esnext",
+    "target": "esnext",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
+    "baseUrl": "./",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2020"
+    ],
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true,
     "allowSyntheticDefaultImports": true,
     "noErrorTruncation": false,
-    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@D3Chart": ["../d3chart/dist/index.js"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@D3Chart": [
+        "../d3chart/dist/index.js"
+      ]
     },
     "plugins": [
       {
@@ -27,6 +35,14 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "temp"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "temp"
+  ]
 }
