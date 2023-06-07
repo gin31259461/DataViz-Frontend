@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useProjectStore } from "@/hooks/store/useProjectStore";
-import { useSplitLineStyle } from "@/hooks/useStyles";
-import { trpc } from "@/server/trpc";
-import { numberToStringPercentage } from "@/utils/parsers";
-import { Box, Grow, Typography } from "@mui/material";
-import SummaryPaper from "../SummaryPaper";
+import { useProjectStore } from '@/hooks/store/useProjectStore';
+import { useSplitLineStyle } from '@/hooks/useStyles';
+import { trpc } from '@/server/trpc';
+import { numberToStringPercentage } from '@/utils/parsers';
+import { Box, Grow, Typography } from '@mui/material';
+import SummaryPaper from '../SummaryPaper';
 
 const Summary = () => {
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
@@ -17,9 +17,9 @@ const Summary = () => {
   const summary = [
     <SummaryPaper key={0} title="Selected data">
       <Typography variant="body1">
-        {"資料 id : " + selectedDataOID?.toString()}
+        {'資料 id : ' + selectedDataOID?.toString()}
         <br />
-        {"資料名稱 : " + tableName.data?.CName}
+        {'資料名稱 : ' + tableName.data?.CName}
       </Typography>
     </SummaryPaper>,
     <SummaryPaper key={1} title="Target">
@@ -27,9 +27,7 @@ const Summary = () => {
     </SummaryPaper>,
     <SummaryPaper key={2} title="Features">
       <Typography variant="body1">
-        {features?.map((feature, i) =>
-          i !== features.length - 1 ? feature + ", " : feature,
-        )}
+        {features?.map((feature, i) => (i !== features.length - 1 ? feature + ', ' : feature))}
       </Typography>
     </SummaryPaper>,
     <SummaryPaper key={3} title="Selected path">
@@ -40,42 +38,36 @@ const Summary = () => {
             <Typography
               key={i}
               variant="body1"
-              sx={{ textEmphasis: "...", textOverflow: "ellipsis" }}
+              sx={{ textEmphasis: '...', textOverflow: 'ellipsis' }}
             >
-              {"Node " +
+              {'Node ' +
                 nodeID +
-                " : " +
+                ' : ' +
                 (i > 0
                   ? selectedPath.nodeLabel[currentNodeID] &&
                     selectedPath.nodeLabel[currentNodeID][1]
-                  : "Root")}
+                  : 'Root')}
             </Typography>
           );
         })}
       <Typography variant="body1">
-        {"目標分布 (低) : " +
-          numberToStringPercentage(
-            selectedPath?.targetValueDistribution.low,
-          )}{" "}
+        {'目標分布 (低) : ' + numberToStringPercentage(selectedPath?.targetValueDistribution.low)}{' '}
         <br />
-        {"目標分布 (中) : " +
-          numberToStringPercentage(
-            selectedPath?.targetValueDistribution.medium,
-          )}{" "}
+        {'目標分布 (中) : ' +
+          numberToStringPercentage(selectedPath?.targetValueDistribution.medium)}{' '}
         <br />
-        {"目標分布 (高) : " +
-          numberToStringPercentage(selectedPath?.targetValueDistribution.high)}
+        {'目標分布 (高) : ' + numberToStringPercentage(selectedPath?.targetValueDistribution.high)}
       </Typography>
     </SummaryPaper>,
   ];
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-        overflowX: "auto",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+        overflowX: 'auto',
         padding: 2,
       }}
     >
@@ -83,20 +75,18 @@ const Summary = () => {
       <Box
         sx={{
           marginTop: 5,
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           gap: 2,
         }}
       >
         {summary.map((paper, i) => {
           return (
             <Grow key={i} in={true} timeout={i * 500}>
-              <Box sx={{ border: borderStyle, borderRadius: 2, width: "100%" }}>
-                {paper}
-              </Box>
+              <Box sx={{ border: borderStyle, borderRadius: 2, width: '100%' }}>{paper}</Box>
             </Grow>
           );
         })}

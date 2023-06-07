@@ -1,21 +1,17 @@
-import Navbar from "@/components/Navbar";
-import { Provider } from "./provider";
-import "@/styles/global.css";
-import { TrpcProvider } from "../components/TrpcProvider";
+import Navbar from '@/components/Navbar';
+import { Provider } from './provider';
+import '@/styles/global.css';
+import { TrpcProvider } from '../components/TrpcProvider';
 
 export const metadata = {
-  title: "DataViz",
-  description: "Analyze data and generate beautiful infographic",
+  title: 'DataViz',
+  description: 'Analyze data and generate beautiful infographic',
   icons: {
-    icon: "/image/favicon.ico",
+    icon: '/image/favicon.ico',
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <TrpcProvider>
       <html lang="en">

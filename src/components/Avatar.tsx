@@ -1,6 +1,6 @@
-import { tokens } from "@/utils/theme";
-import { useTheme } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import { tokens } from '@/utils/theme';
+import { useTheme } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 
 interface AvatarProps {
   src?: string;
@@ -10,19 +10,11 @@ interface AvatarProps {
 }
 
 const getInitials = (name: string) => {
-  const names = name.split(" ");
-  return names.reduce(
-    (result, word) => result + (word[0] ? word[0].toUpperCase() : ""),
-    "",
-  );
+  const names = name.split(' ');
+  return names.reduce((result, word) => result + (word[0] ? word[0].toUpperCase() : ''), '');
 };
 
-export default function CustomAvatar({
-  src,
-  alt,
-  initials,
-  size = 30,
-}: AvatarProps) {
+export default function CustomAvatar({ src, alt, initials, size = 30 }: AvatarProps) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -43,7 +35,7 @@ export default function CustomAvatar({
           width: size,
           height: size,
           bgcolor: colors.greenAccent[500],
-          textAlign: "center",
+          textAlign: 'center',
         }}
       >
         {getInitials(initials)}

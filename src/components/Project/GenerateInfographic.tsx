@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useProjectStore } from "@/hooks/store/useProjectStore";
-import { trpc } from "@/server/trpc";
-import { objectToXYData } from "@/utils/parsers";
-import { BarStacked } from "@D3Chart";
-import { Typography } from "@mui/material";
-import LoadingWithTitle from "../LoadingWithTitle";
-import TabSlider, { TabItem } from "../TabSlider";
+import { useProjectStore } from '@/hooks/store/useProjectStore';
+import { trpc } from '@/server/trpc';
+import { objectToXYData } from '@/utils/parsers';
+import { BarStacked } from '@D3Chart';
+import { Typography } from '@mui/material';
+import LoadingWithTitle from '../LoadingWithTitle';
+import TabSlider, { TabItem } from '../TabSlider';
 
 const GenerateInfographic = () => {
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
@@ -42,18 +42,17 @@ const GenerateInfographic = () => {
             data={xyData}
             mapper={{
               getX: (d: any) => d.x,
-              keys: ["y"],
+              keys: ['y'],
             }}
             base={{
               width: 1000,
               height: 300,
-              title: target ?? "",
+              title: target ?? '',
               color: undefined,
             }}
           />
-          <Typography variant="h4" sx={{ textAlign: "center" }}>
-            {selectedPath.nodeLabel[currentNode] &&
-              selectedPath.nodeLabel[currentNode][1]}
+          <Typography variant="h4" sx={{ textAlign: 'center' }}>
+            {selectedPath.nodeLabel[currentNode] && selectedPath.nodeLabel[currentNode][1]}
           </Typography>
         </div>
       ),

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { Box, Typography } from "@mui/material";
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import { Box, Typography } from '@mui/material';
 
 const AllCompleted = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
         gap: 2,
       }}
     >

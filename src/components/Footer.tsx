@@ -1,7 +1,7 @@
-import { useSplitLineStyle } from "@/hooks/useStyles";
-import GitHub from "@mui/icons-material/GitHub";
-import Twitter from "@mui/icons-material/Twitter";
-import { Container, Grid, Link, Typography, useTheme } from "@mui/material";
+import { useSplitLineStyle } from '@/hooks/useStyles';
+import GitHub from '@mui/icons-material/GitHub';
+import Twitter from '@mui/icons-material/Twitter';
+import { Container, Grid, Link, Typography, useTheme } from '@mui/material';
 
 export default function Footer() {
   const theme = useTheme();
@@ -13,20 +13,16 @@ export default function Footer() {
         padding: theme.spacing(6, 0),
       }}
     >
-      <Container
-        maxWidth="lg"
-        sx={{ borderTop: useSplitLineStyle(), paddingTop: "2vh" }}
-      >
+      <Container maxWidth="lg" sx={{ borderTop: useSplitLineStyle(), paddingTop: '2vh' }}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom>
               About Us
             </Typography>
             <Typography variant="body2" component="p">
-              WKE (Web Knowledge Extraction) Lab. WKE focuses on developing Web
-              information systems (WIS) for various domain requirements. By
-              integrating systems and modules about web/text mining methods
-              developed in WKE, WIS can be enhanced to advanced intelligent
+              WKE (Web Knowledge Extraction) Lab. WKE focuses on developing Web information systems
+              (WIS) for various domain requirements. By integrating systems and modules about
+              web/text mining methods developed in WKE, WIS can be enhanced to advanced intelligent
               information systems.
             </Typography>
           </Grid>
@@ -56,11 +52,7 @@ export default function Footer() {
             <Typography variant="h6" gutterBottom>
               Follow Us
             </Typography>
-            <Link
-              href="https://github.com/gin31259461"
-              color="inherit"
-              target="_blank"
-            >
+            <Link href="https://github.com/gin31259461" color="inherit" target="_blank">
               <GitHub sx={{ marginRight: theme.spacing(1) }} />
               GitHub
             </Link>
@@ -71,15 +63,10 @@ export default function Footer() {
             </Link>
           </Grid>
         </Grid>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          align="center"
-          marginTop="2vh"
-        >
-          {"© "}
+        <Typography variant="body2" color="textSecondary" align="center" marginTop="2vh">
+          {'© '}
           {new Date().getFullYear()}
-          {" WKE. All rights reserved."}
+          {' WKE. All rights reserved.'}
         </Typography>
       </Container>
     </footer>

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useSplitLineStyle } from "@/hooks/useStyles";
-import alphaToHexString from "@/utils/alphaToHexString";
-import AddIcon from "@mui/icons-material/Add";
-import GridViewIcon from "@mui/icons-material/GridView";
-import ListIcon from "@mui/icons-material/List";
+import { useSplitLineStyle } from '@/hooks/useStyles';
+import alphaToHexString from '@/utils/alphaToHexString';
+import AddIcon from '@mui/icons-material/Add';
+import GridViewIcon from '@mui/icons-material/GridView';
+import ListIcon from '@mui/icons-material/List';
 import {
   Box,
   Container,
@@ -17,26 +17,26 @@ import {
   TableCell,
   TableRow,
   useTheme,
-} from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { InfoProjectProps } from "../../types/infoProject";
-import CardButton from "../CardButton";
-import ContextMenu from "../ContextMenu";
-import IconCard from "../IconCard";
-import ProjectCard from "./ProjectCard";
-import ProjectList from "./ProjectList";
+} from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { InfoProjectProps } from '../../types/infoProject';
+import CardButton from '../CardButton';
+import ContextMenu from '../ContextMenu';
+import IconCard from '../IconCard';
+import ProjectCard from './ProjectCard';
+import ProjectList from './ProjectList';
 
-type ViewMode = "grid" | "list";
-type SortTarget = "name" | "dateCreated" | "lastViewed";
+type ViewMode = 'grid' | 'list';
+type SortTarget = 'name' | 'dateCreated' | 'lastViewed';
 
 interface ProjectListProps {
   projects: InfoProjectProps[];
 }
 
 export default function InfoProject({ projects }: ProjectListProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
-  const [sortTarget, setSortTarget] = useState<SortTarget>("name");
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [sortTarget, setSortTarget] = useState<SortTarget>('name');
   const [activeID, setActiveID] = useState<string | null>(null);
   const theme = useTheme();
   const router = useRouter();
@@ -50,15 +50,13 @@ export default function InfoProject({ projects }: ProjectListProps) {
       <Box
         sx={{
           padding: 3,
-          position: "sticky",
-          width: "100%",
-          backdropFilter: "blur(3px)",
+          position: 'sticky',
+          width: '100%',
+          backdropFilter: 'blur(3px)',
           top: 80,
           zIndex: 10,
           backgroundColor:
-            theme.palette.mode === "dark"
-              ? "rgb(20, 27, 45, 0.7)"
-              : "rgb(252, 252, 252, 0.8)",
+            theme.palette.mode === 'dark' ? 'rgb(20, 27, 45, 0.7)' : 'rgb(252, 252, 252, 0.8)',
           borderBottom: `${useSplitLineStyle()}`,
         }}
       >
@@ -67,23 +65,14 @@ export default function InfoProject({ projects }: ProjectListProps) {
             title="New infographic project"
             description="Automatic analyze data to infographic"
             icon={<AddIcon />}
-            onClick={() => router.push("/project")}
+            onClick={() => router.push('/project')}
           ></CardButton>
         </Grid>
-        <Grid
-          container
-          justifyContent="flex-end"
-          alignItems={"flex-end"}
-          marginTop={3}
-        >
+        <Grid container justifyContent="flex-end" alignItems={'flex-end'} marginTop={3}>
           <div style={{ marginRight: 10 }}>
             <FormControl variant="standard">
               <InputLabel>Sort by: </InputLabel>
-              <Select
-                sx={{ border: "none" }}
-                value={sortTarget}
-                onChange={handleSortChange}
-              >
+              <Select sx={{ border: 'none' }} value={sortTarget} onChange={handleSortChange}>
                 <MenuItem value="name">Name</MenuItem>
                 <MenuItem value="dateCreated">Date created</MenuItem>
                 <MenuItem value="lastViewed">Last viewed</MenuItem>
@@ -91,27 +80,19 @@ export default function InfoProject({ projects }: ProjectListProps) {
             </FormControl>
           </div>
           <div style={{ marginRight: 5 }}>
-            <IconCard title="Grid view" onClick={() => setViewMode("grid")}>
-              {viewMode === "list" ? (
-                <GridViewIcon />
-              ) : (
-                <GridViewIcon color="secondary" />
-              )}
+            <IconCard title="Grid view" onClick={() => setViewMode('grid')}>
+              {viewMode === 'list' ? <GridViewIcon /> : <GridViewIcon color="secondary" />}
             </IconCard>
           </div>
           <div>
-            <IconCard title="List view" onClick={() => setViewMode("list")}>
-              {viewMode === "grid" ? (
-                <ListIcon />
-              ) : (
-                <ListIcon color="secondary" />
-              )}
+            <IconCard title="List view" onClick={() => setViewMode('list')}>
+              {viewMode === 'grid' ? <ListIcon /> : <ListIcon color="secondary" />}
             </IconCard>
           </div>
         </Grid>
       </Box>
       <Container sx={{ paddingBottom: 2 }}>
-        {viewMode === "grid" ? (
+        {viewMode === 'grid' ? (
           <Grid container spacing={2} mt={2}>
             {projects.map((project) => (
               <Grid key={project.id} item xs={12} sm={6} md={4}>
@@ -133,16 +114,14 @@ export default function InfoProject({ projects }: ProjectListProps) {
                 <TableRow
                   key={project.id}
                   sx={{
-                    "&:hover": {
+                    '&:hover': {
                       backgroundColor:
-                        activeID === project.id
-                          ? "none"
-                          : theme.palette.action.hover,
+                        activeID === project.id ? 'none' : theme.palette.action.hover,
                     },
                     backgroundColor:
                       activeID === project.id
                         ? theme.palette.info.main + alphaToHexString(15)
-                        : "none",
+                        : 'none',
                   }}
                 >
                   <TableCell padding="none">

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useProjectStore } from "@/hooks/store/useProjectStore";
-import { useUserStore } from "@/hooks/store/useUserStore";
-import { trpc } from "@/server/trpc";
-import { Box, LinearProgress } from "@mui/material";
-import AutoCompleteSelect from "../AutoCompleteSelect";
-import ObjectTable from "../ObjectTable";
+import { useProjectStore } from '@/hooks/store/useProjectStore';
+import { useUserStore } from '@/hooks/store/useUserStore';
+import { trpc } from '@/server/trpc';
+import { Box, LinearProgress } from '@mui/material';
+import AutoCompleteSelect from '../AutoCompleteSelect';
+import ObjectTable from '../ObjectTable';
 
 export default function SelectData() {
   const mid = useUserStore((state) => state.mid);
@@ -16,25 +16,21 @@ export default function SelectData() {
 
   const handleSelectChange = (value: string) => {
     if (allData.isSuccess) {
-      setDataOID(Number(value.split(".")[0]));
+      setDataOID(Number(value.split('.')[0]));
     }
   };
 
   return (
     <Box
       sx={{
-        overflowY: "auto",
+        overflowY: 'auto',
         padding: 2,
-        width: "100%",
+        width: '100%',
       }}
     >
       <AutoCompleteSelect
-        options={
-          allData.data?.map((d, i) => d.OID.toString() + ". " + d.CName) ?? []
-        }
-        initialValueIndex={
-          allData.data?.findIndex((d) => d.OID == selectedDataOID) ?? 0
-        }
+        options={allData.data?.map((d, i) => d.OID.toString() + '. ' + d.CName) ?? []}
+        initialValueIndex={allData.data?.findIndex((d) => d.OID == selectedDataOID) ?? 0}
         onChange={handleSelectChange}
         loading={allData.isLoading}
       ></AutoCompleteSelect>

@@ -31,10 +31,7 @@ export interface DecisionTreeGraph {
 
 export type nodeDataProps = Record<number, Object[]>;
 
-export function findPaths(
-  graph: DecisionTreeGraph,
-  rootId: number = 0,
-): DecisionTreePath[] {
+export function findPaths(graph: DecisionTreeGraph, rootId: number = 0): DecisionTreePath[] {
   const paths: DecisionTreePath[] = [];
 
   if (!graph) return [];
@@ -43,16 +40,14 @@ export function findPaths(
     // 將目前節點加入路徑中
     path.push(currentId);
 
-    const outgoingEdges = Object.values(graph.edges).filter(
-      (edge) => edge.head === currentId,
-    );
+    const outgoingEdges = Object.values(graph.edges).filter((edge) => edge.head === currentId);
 
     if (outgoingEdges.length === 0) {
       // 如果目前節點沒有出邊（即為最底層節點），將路徑加入結果中
       const lastNodeID = path[path.length - 1];
       const node = graph.nodes[lastNodeID];
       const targetValue: number[] = JSON.parse(
-        node.labels[node.labels.length - 1].split(" ").slice(2).join(""),
+        node.labels[node.labels.length - 1].split(' ').slice(2).join(''),
       );
       let sum = 0;
       targetValue.forEach((n) => (sum += n));
@@ -66,17 +61,17 @@ export function findPaths(
         const nodeID = path[i];
         if (graph.nodes[nodeID].labels.length == 4) {
           const nextNodeID = path[i + 1];
-          const conditionLabels = graph.nodes[nodeID].labels[0].split(" ");
+          const conditionLabels = graph.nodes[nodeID].labels[0].split(' ');
           let newFilter = ``,
-            newFilterQuoted = "";
+            newFilterQuoted = '';
           const feature = conditionLabels[0];
           if (!graph.mappings[feature]) {
             const newLabels = [...graph.nodes[nodeID].labels];
             if (nodeID + 1 != nextNodeID) {
               const condition = newLabels[0];
-              const splitCondition = condition.split(" ");
-              splitCondition[1] = ">";
-              newLabels[0] = splitCondition.join(" ");
+              const splitCondition = condition.split(' ');
+              splitCondition[1] = '>';
+              newLabels[0] = splitCondition.join(' ');
             }
             nodeLabel[nodeID] = newLabels;
             continue;
@@ -85,26 +80,20 @@ export function findPaths(
             const value = Math.floor(Number(conditionLabels[2]));
             for (let i = value; i >= 0; i--) {
               newFilter += `"` + graph.mappings[feature][i.toString()] + `",`;
-              newFilterQuoted +=
-                "'" + graph.mappings[feature][i.toString()] + "',";
+              newFilterQuoted += "'" + graph.mappings[feature][i.toString()] + "',";
             }
           } else {
             // right edge => false
             const value = Math.ceil(Number(conditionLabels[2]));
-            for (
-              let i = value;
-              i < Object.values(graph.mappings[feature]).length;
-              i++
-            ) {
+            for (let i = value; i < Object.values(graph.mappings[feature]).length; i++) {
               newFilter += `"` + graph.mappings[feature][i.toString()] + `",`;
-              newFilterQuoted +=
-                "'" + graph.mappings[feature][i.toString()] + "',";
+              newFilterQuoted += "'" + graph.mappings[feature][i.toString()] + "',";
             }
           }
           nodeLabel[nodeID] = [
             feature,
-            feature + " in (" + newFilter.slice(0, -1) + ")",
-            feature + " in (" + newFilterQuoted.slice(0, -1) + ")",
+            feature + ' in (' + newFilter.slice(0, -1) + ')',
+            feature + ' in (' + newFilterQuoted.slice(0, -1) + ')',
             ...graph.nodes[nodeID].labels.slice(1),
           ];
         }

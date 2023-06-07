@@ -1,7 +1,7 @@
-import { nodeDataProps } from "@/utils/findPath";
-import { convertBigIntToString } from "@/utils/parsers";
-import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { nodeDataProps } from '@/utils/findPath';
+import { convertBigIntToString } from '@/utils/parsers';
+import { z } from 'zod';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
 type analysisTable = {
   TableName: string;
@@ -19,26 +19,23 @@ export interface analysisResult {
 }
 
 export const analysisRouter = createTRPCRouter({
-  columnAnalysis: publicProcedure
-    .input(z.number().nullish())
-    .query(async ({ input, ctx }) => {
-      if (input === undefined) return [];
-      await ctx.prisma
-        .$queryRaw`EXEC RawDB.dbo.sp_dimension_measure_analysis ${input}`;
-      const dimension = `RawDB.dbo.vd_D${input}_Dimension`;
-      const measure = `RawDB.dbo.vd_D${input}_Measure`;
-      const vd_dimension = await ctx.prisma.$queryRawUnsafe<analysisTable[]>(
-        `SELECT * FROM ${dimension}`,
-      );
-      const vd_measure = await ctx.prisma.$queryRawUnsafe<analysisTable[]>(
-        `SELECT * FROM ${measure}`,
-      );
-      const result: analysisResult = {
-        dimension: vd_dimension,
-        measure: vd_measure,
-      };
-      return result;
-    }),
+  columnAnalysis: publicProcedure.input(z.number().nullish()).query(async ({ input, ctx }) => {
+    if (input === undefined) return [];
+    await ctx.prisma.$queryRaw`EXEC RawDB.dbo.sp_dimension_measure_analysis ${input}`;
+    const dimension = `RawDB.dbo.vd_D${input}_Dimension`;
+    const measure = `RawDB.dbo.vd_D${input}_Measure`;
+    const vd_dimension = await ctx.prisma.$queryRawUnsafe<analysisTable[]>(
+      `SELECT * FROM ${dimension}`,
+    );
+    const vd_measure = await ctx.prisma.$queryRawUnsafe<analysisTable[]>(
+      `SELECT * FROM ${measure}`,
+    );
+    const result: analysisResult = {
+      dimension: vd_dimension,
+      measure: vd_measure,
+    };
+    return result;
+  }),
   decisionTreeAnalysis: publicProcedure
     .input(
       z.object({
@@ -58,16 +55,14 @@ export const analysisRouter = createTRPCRouter({
       const graph = await result.json();
       return graph;
     }),
-  getTableName: publicProcedure
-    .input(z.number().optional())
-    .query(async ({ input, ctx }) => {
-      if (input === undefined) return undefined;
-      const tableName = await ctx.prisma.object.findFirst({
-        select: { CName: true },
-        where: { OID: input },
-      });
-      return tableName;
-    }),
+  getTableName: publicProcedure.input(z.number().optional()).query(async ({ input, ctx }) => {
+    if (input === undefined) return undefined;
+    const tableName = await ctx.prisma.object.findFirst({
+      select: { CName: true },
+      where: { OID: input },
+    });
+    return tableName;
+  }),
   getColumnDistinctValue: publicProcedure
     .input(z.number().optional())
     .query(async ({ input, ctx }) => {
@@ -103,7 +98,7 @@ export const analysisRouter = createTRPCRouter({
       const path = input.decisionTreePath.path;
       const nodeLabel = input.decisionTreePath.nodeLabel;
 
-      let currentQueryWhere = "";
+      let currentQueryWhere = '';
       let nodeData: nodeDataProps = {};
 
       for (let i = 0; i + 1 < path.length; i++) {
@@ -122,7 +117,7 @@ export const analysisRouter = createTRPCRouter({
             for ${condition1}
           ) as p
         `;
-        currentQueryWhere += " and " + condition2;
+        currentQueryWhere += ' and ' + condition2;
         const data = await ctx.prisma.$queryRawUnsafe<Object[]>(query);
         const convertedData = data.map((obj) => convertBigIntToString(obj));
         nodeData[path[i + 1]] = convertedData as Object[];

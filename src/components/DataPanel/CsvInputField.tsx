@@ -1,29 +1,21 @@
-import { convertCsvToFile, isValidCsvString } from "@/utils/parsers";
-import {
-  FormControlLabel,
-  FormHelperText,
-  Radio,
-  RadioGroup,
-  TextField,
-} from "@mui/material";
-import { useState } from "react";
+import { convertCsvToFile, isValidCsvString } from '@/utils/parsers';
+import { FormControlLabel, FormHelperText, Radio, RadioGroup, TextField } from '@mui/material';
+import { useState } from 'react';
 
-type InputType = "upload" | "text" | "url";
+type InputType = 'upload' | 'text' | 'url';
 
 interface CsvInputFiledProps {
   onInputChange: (file: File | string | null) => void;
 }
 
 export default function CsvInputFiled({ onInputChange }: CsvInputFiledProps) {
-  const [inputType, setInputType] = useState<InputType>("upload");
-  const [inputValue, setInputValue] = useState<string | File>("");
+  const [inputType, setInputType] = useState<InputType>('upload');
+  const [inputValue, setInputValue] = useState<string | File>('');
   const [invalid, setInvalid] = useState(false);
   const urlRegex =
     /^(?:https?:\/\/)?(?:www\.)?[a-z0-9]+(?:[\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(?::[0-9]{1,5})?(?:\/.*)?$/;
 
-  const handleTextInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleTextInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
     if (!isValidCsvString(event.target.value)) {
       setInvalid(true);
@@ -46,11 +38,9 @@ export default function CsvInputFiled({ onInputChange }: CsvInputFiledProps) {
     }
   };
 
-  const handleInputTypeChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleInputTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputType(event.target.value as InputType);
-    setInputValue("");
+    setInputValue('');
     setInvalid(false);
     onInputChange(null);
   };
@@ -63,28 +53,16 @@ export default function CsvInputFiled({ onInputChange }: CsvInputFiledProps) {
         value={inputType}
         onChange={handleInputTypeChange}
         row
-        sx={{ marginTop: 5, width: "100%" }}
+        sx={{ marginTop: 5, width: '100%' }}
       >
-        <FormControlLabel
-          value="upload"
-          control={<Radio color="secondary" />}
-          label="CSV File"
-        />
-        <FormControlLabel
-          value="text"
-          control={<Radio color="secondary" />}
-          label="CSV Text"
-        />
-        <FormControlLabel
-          value="url"
-          control={<Radio color="secondary" />}
-          label="URL"
-        />
+        <FormControlLabel value="upload" control={<Radio color="secondary" />} label="CSV File" />
+        <FormControlLabel value="text" control={<Radio color="secondary" />} label="CSV Text" />
+        <FormControlLabel value="url" control={<Radio color="secondary" />} label="URL" />
       </RadioGroup>
-      {inputType === "upload" && (
+      {inputType === 'upload' && (
         <TextField
           type="file"
-          inputProps={{ accept: ".csv" }}
+          inputProps={{ accept: '.csv' }}
           fullWidth
           onChange={(e) => {
             // const fileName = e.target.value.split(/(\\|\/)/g).pop();
@@ -96,7 +74,7 @@ export default function CsvInputFiled({ onInputChange }: CsvInputFiledProps) {
           }}
         />
       )}
-      {inputType === "text" && (
+      {inputType === 'text' && (
         <TextField
           label="Input csv text"
           error={invalid}
@@ -106,7 +84,7 @@ export default function CsvInputFiled({ onInputChange }: CsvInputFiledProps) {
           onChange={handleTextInputChange}
         />
       )}
-      {inputType === "url" && (
+      {inputType === 'url' && (
         <TextField
           error={invalid}
           label="Input valid csv url"

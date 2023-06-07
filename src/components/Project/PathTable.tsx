@@ -1,7 +1,7 @@
-import { useProjectStore } from "@/hooks/store/useProjectStore";
-import { trpc } from "@/server/trpc";
-import { DecisionTreePath } from "@/utils/findPath";
-import { tokens } from "@/utils/theme";
+import { useProjectStore } from '@/hooks/store/useProjectStore';
+import { trpc } from '@/server/trpc';
+import { DecisionTreePath } from '@/utils/findPath';
+import { tokens } from '@/utils/theme';
 import {
   Box,
   Button,
@@ -15,9 +15,9 @@ import {
   TableSortLabel,
   Typography,
   useTheme,
-} from "@mui/material";
-import { useState } from "react";
-import HtmlTooltip from "../HtmlTooltip";
+} from '@mui/material';
+import { useState } from 'react';
+import HtmlTooltip from '../HtmlTooltip';
 
 interface TableSortableProps {
   columns: string[];
@@ -27,7 +27,7 @@ interface TableSortableProps {
 
 const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
   const [orderby, setOrderby] = useState(columns[0]);
-  const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("desc");
+  const [orderDirection, setOrderDirection] = useState<'asc' | 'desc'>('desc');
   const [infoOpen, setInfoOpen] = useState(false);
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
   const target = useProjectStore((state) => state.target);
@@ -54,31 +54,27 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
 
   const handleSort = (currentOrderby: string) => {
     setOrderDirection((prev) => {
-      return currentOrderby !== orderby
-        ? prev
-        : prev === "asc"
-        ? "desc"
-        : "asc";
+      return currentOrderby !== orderby ? prev : prev === 'asc' ? 'desc' : 'asc';
     });
     setOrderby(currentOrderby);
   };
 
   return (
     <TableContainer>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             gap: 5,
           }}
         >
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
               gap: 0.5,
             }}
           >
@@ -87,9 +83,9 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
           </Box>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
               gap: 0.5,
             }}
           >
@@ -98,9 +94,9 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
           </Box>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
               gap: 0.5,
             }}
           >
@@ -109,36 +105,32 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
           </Box>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
               gap: 0.5,
             }}
           >
             {colorBlock(rangeColor76_100)}
             <Typography variant="subtitle1">76% ~ 100%</Typography>
           </Box>
-          <Button
-            color="info"
-            variant="outlined"
-            onClick={() => setInfoOpen((prev) => !prev)}
-          >
+          <Button color="info" variant="outlined" onClick={() => setInfoOpen((prev) => !prev)}>
             Info
           </Button>
         </Box>
         <Collapse in={infoOpen}>
           <Box
             sx={{
-              display: "flex",
+              display: 'flex',
               gap: 2,
               marginBottom: 2,
-              flexDirection: "column",
-              alignItems: "center",
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
             <Typography>資料表 : {tableName.data?.CName}</Typography>
             <Typography>目標 : {target}</Typography>
-            <Typography>特徵 : {features?.join(", ")}</Typography>
+            <Typography>特徵 : {features?.join(', ')}</Typography>
           </Box>
         </Collapse>
       </Box>
@@ -179,7 +171,7 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
                             backgroundColor: rangeColor0_25,
                           }}
                         >
-                          {(cell as number).toFixed(0).toString() + "%"}
+                          {(cell as number).toFixed(0).toString() + '%'}
                         </TableCell>
                       );
                     else if (value >= 26 && value <= 50)
@@ -190,7 +182,7 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
                             backgroundColor: rangeColor26_50,
                           }}
                         >
-                          {(cell as number).toFixed(0).toString() + "%"}
+                          {(cell as number).toFixed(0).toString() + '%'}
                         </TableCell>
                       );
                     else if (value >= 51 && value <= 75)
@@ -201,7 +193,7 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
                             backgroundColor: rangeColor51_75,
                           }}
                         >
-                          {(cell as number).toFixed(0).toString() + "%"}
+                          {(cell as number).toFixed(0).toString() + '%'}
                         </TableCell>
                       );
                     else if (value >= 76 && value <= 100)
@@ -212,7 +204,7 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
                             backgroundColor: rangeColor76_100,
                           }}
                         >
-                          {(cell as number).toFixed(0).toString() + "%"}
+                          {(cell as number).toFixed(0).toString() + '%'}
                         </TableCell>
                       );
                   } else if (j == 1) {
@@ -223,19 +215,19 @@ const PathTable: React.FC<TableSortableProps> = ({ columns, rows, paths }) => {
                           const currentNodeID = paths[i].path[k - 1];
                           return (
                             <Typography key={k}>
-                              {"Node " + nodeID + " : "}
+                              {'Node ' + nodeID + ' : '}
                               {k > 0
                                 ? paths[i].nodeLabel[currentNodeID] &&
                                   paths[i].nodeLabel[currentNodeID][1]
-                                : "Root"}
+                                : 'Root'}
                             </Typography>
                           );
                         })}
                       >
                         <TableCell
                           sx={{
-                            cursor: "pointer",
-                            "&:hover": {
+                            cursor: 'pointer',
+                            '&:hover': {
                               backgroundColor: theme.palette.action.hover,
                             },
                           }}

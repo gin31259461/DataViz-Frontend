@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "es2020"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,7 +14,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    //"baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "noErrorTruncation": false,
+    "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
       "@D3Chart": ["../d3chart/dist/index.js"]

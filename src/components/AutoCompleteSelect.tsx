@@ -1,5 +1,5 @@
-import { Autocomplete, CircularProgress, TextField } from "@mui/material";
-import { Fragment, useState } from "react";
+import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { Fragment, useState } from 'react';
 
 interface AutoCompleteSelectProps {
   loading: boolean;
@@ -14,22 +14,14 @@ const AutoCompleteSelect: React.FC<AutoCompleteSelectProps> = ({
   options,
   onChange,
 }) => {
-  const [inputValue, setInputValue] = useState<string>("");
-  const [selectedValue, setSelectedValue] = useState<string | null>(
-    options[initialValueIndex],
-  );
+  const [inputValue, setInputValue] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<string | null>(options[initialValueIndex]);
 
-  const handleInputChange = (
-    event: React.SyntheticEvent<Element>,
-    value: string,
-  ) => {
+  const handleInputChange = (event: React.SyntheticEvent<Element>, value: string) => {
     setInputValue(value);
   };
 
-  const handleOptionChange = (
-    event: React.SyntheticEvent,
-    value: string | null,
-  ) => {
+  const handleOptionChange = (event: React.SyntheticEvent, value: string | null) => {
     setSelectedValue(value);
     if (value) {
       onChange(value);

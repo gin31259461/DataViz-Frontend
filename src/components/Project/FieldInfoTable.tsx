@@ -1,4 +1,4 @@
-import { useProjectStore } from "@/hooks/store/useProjectStore";
+import { useProjectStore } from '@/hooks/store/useProjectStore';
 import {
   Checkbox,
   FormControlLabel,
@@ -13,9 +13,9 @@ import {
   TableHead,
   TableRow,
   useTheme,
-} from "@mui/material";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
-import MultiSelect from "../MultiSelect";
+} from '@mui/material';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import MultiSelect from '../MultiSelect';
 
 interface FieldInfo {
   id: number;
@@ -31,18 +31,13 @@ interface FieldInfoTableProps {
   onTypeChange: (id: number, type: string) => void;
 }
 
-const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
-  data,
-  onTypeChange,
-}) => {
+const FieldInfoTable: React.FC<FieldInfoTableProps> = ({ data, onTypeChange }) => {
   const theme = useTheme();
   const target = useProjectStore((state) => state.target);
   const features = useProjectStore((state) => state.features);
   const setTarget = useProjectStore((state) => state.setTarget);
   const setFeatures = useProjectStore((state) => state.setFeatures);
-  const [typeValue, setTypeValue] = useState<string[]>(
-    data.map((row) => row.type),
-  );
+  const [typeValue, setTypeValue] = useState<string[]>(data.map((row) => row.type));
   const [boxChecked, setBoxChecked] = useState<string[] | undefined>(features);
   const [ratioChecked, setRatioChecked] = useState<string | undefined>(target);
 
@@ -63,9 +58,7 @@ const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
     checked: boolean,
   ) => {
     if (!checked) {
-      const newBoxChecked = boxChecked?.filter(
-        (fieldName) => fieldName != value,
-      );
+      const newBoxChecked = boxChecked?.filter((fieldName) => fieldName != value);
       setBoxChecked(newBoxChecked);
       setFeatures(newBoxChecked);
     } else {
@@ -75,11 +68,7 @@ const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
     }
   };
 
-  const handleTypeChange = (
-    id: number,
-    index: number,
-    event: SelectChangeEvent<string>,
-  ) => {
+  const handleTypeChange = (id: number, index: number, event: SelectChangeEvent<string>) => {
     const { value } = event.target;
     setTypeValue((prev) => {
       const newTypeValue = [...prev];
@@ -107,7 +96,7 @@ const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
             <TableRow
               key={row.id}
               sx={{
-                "&:hover": { backgroundColor: theme.palette.action.hover },
+                '&:hover': { backgroundColor: theme.palette.action.hover },
               }}
             >
               <TableCell sx={{ maxWidth: 70 }}>
@@ -121,13 +110,11 @@ const FieldInfoTable: React.FC<FieldInfoTableProps> = ({
               </TableCell>
               <TableCell sx={{ maxWidth: 70 }}>{row.fieldName}</TableCell>
               <TableCell sx={{ maxWidth: 120 }}>{row.tableName}</TableCell>
-              <TableCell sx={{ maxWidth: 20 }}>
-                {row.dimension ? "維度" : "度量"}
-              </TableCell>
+              <TableCell sx={{ maxWidth: 20 }}>{row.dimension ? '維度' : '度量'}</TableCell>
               <TableCell sx={{ maxWidth: 120 }}>
                 {row.dimension ? (
                   <MultiSelect
-                    options={row.distinctValue.split(",")}
+                    options={row.distinctValue.split(',')}
                     onChange={() => {}}
                   ></MultiSelect>
                 ) : null}

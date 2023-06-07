@@ -1,4 +1,4 @@
-import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Dialog,
   DialogActions,
@@ -7,7 +7,7 @@ import {
   Divider,
   IconButton,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
 interface ShowDataDialogProps {
   open: boolean;
@@ -33,15 +33,15 @@ export default function ShowDataDialog({
         <Typography
           sx={{
             paddingTop: 3,
-            wordBreak: "break-word",
-            overflowWrap: "break-word",
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
           }}
         >
           {description}
         </Typography>
       </DialogTitle>
       <Divider />
-      <DialogContent sx={{ overflowX: "auto" }}>
+      <DialogContent sx={{ overflowX: 'auto' }}>
         <Typography>{dataInfo}</Typography>
         {children}
       </DialogContent>

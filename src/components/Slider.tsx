@@ -1,5 +1,5 @@
-import { Box, Button, Slide, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Slide, Typography } from '@mui/material';
+import { useState } from 'react';
 
 type SliderProps = {
   components: React.ReactNode[];
@@ -7,31 +7,27 @@ type SliderProps = {
 
 const Slider: React.FC<SliderProps> = ({ components }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [slideDirection, setSlideDirection] = useState<
-    "left" | "right" | "up" | "down"
-  >("left");
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | 'up' | 'down'>('left');
 
   const handleNext = () => {
-    setCurrentPage((prevPage) =>
-      prevPage < components.length - 1 ? prevPage + 1 : prevPage,
-    );
-    setSlideDirection("left");
+    setCurrentPage((prevPage) => (prevPage < components.length - 1 ? prevPage + 1 : prevPage));
+    setSlideDirection('left');
   };
 
   const handlePrevious = () => {
     setCurrentPage((prevPage) => (prevPage > 0 ? prevPage - 1 : prevPage));
-    setSlideDirection("right");
+    setSlideDirection('right');
   };
 
   return (
     <Box
       sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        overflow: "hidden",
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        overflow: 'hidden',
         gap: 2,
       }}
     >
@@ -47,9 +43,9 @@ const Slider: React.FC<SliderProps> = ({ components }) => {
         >
           <Box
             sx={{
-              display: index === currentPage ? "flex" : "none",
-              alignItems: "center",
-              justifyContent: "center",
+              display: index === currentPage ? 'flex' : 'none',
+              alignItems: 'center',
+              justifyContent: 'center',
               flexGrow: 1,
             }}
           >
@@ -59,9 +55,9 @@ const Slider: React.FC<SliderProps> = ({ components }) => {
       ))}
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           gap: 2,
         }}
       >

@@ -1,13 +1,6 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { useMemo } from "react";
-import { useTable } from "react-table";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { useMemo } from 'react';
+import { useTable } from 'react-table';
 
 interface ObjectTableProps {
   data: object[];
@@ -25,8 +18,7 @@ export default function ObjectTable({ data }: ObjectTableProps) {
 
   const tableInstance = useTable({ columns, data });
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
 
   return (
     <TableContainer>
@@ -35,11 +27,8 @@ export default function ObjectTable({ data }: ObjectTableProps) {
           {headerGroups.map((headerGroup) => (
             <TableRow key={headerGroup.getHeaderGroupProps().key}>
               {headerGroup.headers.map((column) => (
-                <TableCell
-                  sx={{ whiteSpace: "nowrap" }}
-                  key={column.getHeaderProps().key}
-                >
-                  {column.render("Header")}
+                <TableCell sx={{ whiteSpace: 'nowrap' }} key={column.getHeaderProps().key}>
+                  {column.render('Header')}
                 </TableCell>
               ))}
             </TableRow>
@@ -51,11 +40,8 @@ export default function ObjectTable({ data }: ObjectTableProps) {
             return (
               <TableRow key={row.getRowProps().key}>
                 {row.cells.map((cell) => (
-                  <TableCell
-                    sx={{ whiteSpace: "nowrap" }}
-                    key={cell.getCellProps().key}
-                  >
-                    {cell.render("Cell")}
+                  <TableCell sx={{ whiteSpace: 'nowrap' }} key={cell.getCellProps().key}>
+                    {cell.render('Cell')}
                   </TableCell>
                 ))}
               </TableRow>

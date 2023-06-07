@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import DatasetIcon from "@mui/icons-material/Dataset";
-import LogoutIcon from "@mui/icons-material/Logout";
-import PieChartIcon from "@mui/icons-material/PieChart";
-import SettingsIcon from "@mui/icons-material/Settings";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import DatasetIcon from '@mui/icons-material/Dataset';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PieChartIcon from '@mui/icons-material/PieChart';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
   Box,
   Divider,
@@ -17,9 +17,9 @@ import {
   ListItemIcon,
   ListItemText,
   useTheme,
-} from "@mui/material";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+} from '@mui/material';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface DashboardProps {
   children: React.ReactNode;
@@ -46,7 +46,7 @@ export default function Dashboard({ children }: DashboardProps) {
   }, [open]);
 
   return (
-    <Box sx={{ display: "flex", position: "relative" }}>
+    <Box sx={{ display: 'flex', position: 'relative' }}>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -58,12 +58,12 @@ export default function Dashboard({ children }: DashboardProps) {
           sx: {
             backgroundColor: theme.palette.background.default,
             width: drawerWidth,
-            transition: "width 225ms cubic-bezier(0, 0, 0.2, 1) 0ms",
-            height: "calc(100vh - 80px)",
-            top: "80px",
+            transition: 'width 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
+            height: 'calc(100vh - 80px)',
+            top: '80px',
             zIndex: 10,
-            position: "sticky",
-            overflow: "hidden",
+            position: 'sticky',
+            overflow: 'hidden',
           },
         }}
         open
@@ -82,7 +82,7 @@ export default function Dashboard({ children }: DashboardProps) {
         </div>
         <Divider />
         <List>
-          <Link href="/mgt/data" style={{ color: "inherit" }}>
+          <Link href="/mgt/data" style={{ color: 'inherit' }}>
             <ListItemButton>
               <ListItemIcon>
                 <DatasetIcon />
@@ -90,15 +90,12 @@ export default function Dashboard({ children }: DashboardProps) {
               <ListItemText primary="Data" />
             </ListItemButton>
           </Link>
-          <Link href="/mgt/infographic" style={{ color: "inherit" }}>
+          <Link href="/mgt/infographic" style={{ color: 'inherit' }}>
             <ListItemButton>
               <ListItemIcon>
                 <PieChartIcon />
               </ListItemIcon>
-              <ListItemText
-                primary="Infographic"
-                sx={{ whiteSpace: "nowrap" }}
-              />
+              <ListItemText primary="Infographic" sx={{ whiteSpace: 'nowrap' }} />
             </ListItemButton>
           </Link>
         </List>
@@ -127,7 +124,7 @@ export default function Dashboard({ children }: DashboardProps) {
           </ListItemButton>
         </List>
       </Drawer>
-      <main style={{ width: "100%" }}>{children}</main>
+      <main style={{ width: '100%' }}>{children}</main>
     </Box>
   );
 }

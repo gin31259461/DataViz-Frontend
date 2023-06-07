@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from '@mui/material';
 
 interface SummaryPaperProps {
   title: string;
@@ -11,8 +11,8 @@ const SummaryPaper: React.FC<SummaryPaperProps> = ({ title, children }) => {
       <Box
         p={2}
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap: 2,
         }}
       >

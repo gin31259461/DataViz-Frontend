@@ -6,8 +6,8 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-} from "@mui/material";
-import { useState } from "react";
+} from '@mui/material';
+import { useState } from 'react';
 
 // interface Option {
 //   value: string;
@@ -35,17 +35,14 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ options, onChange }) => {
         multiple
         value={selectedValues}
         onChange={handleSelectChange}
-        renderValue={(selected) => (selected as string[]).join(", ")}
+        renderValue={(selected) => (selected as string[]).join(', ')}
         label="Select options"
       >
         {options
           .sort((a, b) => Number(a) - Number(b))
           .map((option) => (
             <MenuItem key={option} value={option}>
-              <Checkbox
-                color="info"
-                checked={selectedValues.includes(option)}
-              />
+              <Checkbox color="info" checked={selectedValues.includes(option)} />
               <ListItemText primary={option} />
             </MenuItem>
           ))}

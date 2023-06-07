@@ -1,14 +1,8 @@
-"use client";
+'use client';
 
-import { InfoProjectProps } from "@/types/infoProject";
-import { tokens } from "@/utils/theme";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { InfoProjectProps } from '@/types/infoProject';
+import { tokens } from '@/utils/theme';
+import { Card, CardActionArea, CardContent, Typography, useTheme } from '@mui/material';
 
 interface ProjectCardProps {
   project: InfoProjectProps;
@@ -23,9 +17,7 @@ export default function ProjectCard({ project, active }: ProjectCardProps) {
     <Card
       sx={{
         maxWidth: 345,
-        border: active
-          ? `2px solid ${theme.palette.info.main}`
-          : theme.palette.background.paper,
+        border: active ? `2px solid ${theme.palette.info.main}` : theme.palette.background.paper,
       }}
     >
       <CardActionArea>

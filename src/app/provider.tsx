@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import "@/styles/global.css";
-import { ColorModeContext, useMode } from "@/utils/theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import '@/styles/global.css';
+import { ColorModeContext, useMode } from '@/utils/theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 export function Provider({ children }: { children: React.ReactNode }) {
   const { theme, colorMode } = useMode();

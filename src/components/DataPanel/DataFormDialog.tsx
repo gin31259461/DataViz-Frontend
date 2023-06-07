@@ -6,9 +6,9 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-} from "@mui/material";
-import { useState } from "react";
-import CsvInputFiled from "./CsvInputField";
+} from '@mui/material';
+import { useState } from 'react';
+import CsvInputFiled from './CsvInputField';
 
 interface DataFormDialogProps {
   open: boolean;
@@ -16,27 +16,23 @@ interface DataFormDialogProps {
   onSubmit: (formData: FormData) => Promise<void>;
 }
 
-export default function DataFormDialog({
-  open,
-  onClose,
-  onSubmit,
-}: DataFormDialogProps) {
+export default function DataFormDialog({ open, onClose, onSubmit }: DataFormDialogProps) {
   const [file, setFile] = useState<File | string | null>(null);
-  const [name, setName] = useState("");
-  const [des, setDes] = useState("");
+  const [name, setName] = useState('');
+  const [des, setDes] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    if (file instanceof File) formData.append("file", file as File);
-    else if (typeof file === "string") formData.append("url", file as string);
-    formData.append("name", name);
-    formData.append("des", des);
+    if (file instanceof File) formData.append('file', file as File);
+    else if (typeof file === 'string') formData.append('url', file as string);
+    formData.append('name', name);
+    formData.append('des', des);
     setLoading(true);
     await onSubmit(formData);
     onClose();
-    setName("");
-    setDes("");
+    setName('');
+    setDes('');
     setFile(null);
     setLoading(false);
   };
@@ -70,9 +66,9 @@ export default function DataFormDialog({
           <CsvInputFiled
             onInputChange={(file: File | string | null) => {
               setFile(file);
-              if (name === "") {
+              if (name === '') {
                 if (file instanceof File) {
-                  setName(file.name.split(".").slice(0, -1)[0]);
+                  setName(file.name.split('.').slice(0, -1)[0]);
                 }
               }
             }}
@@ -80,22 +76,22 @@ export default function DataFormDialog({
         </DialogContent>
         <DialogActions>
           <Button
-            sx={{ color: "inherit" }}
+            sx={{ color: 'inherit' }}
             onClick={() => {
               onClose();
-              setName("");
-              setDes("");
+              setName('');
+              setDes('');
               setFile(null);
             }}
           >
             Cancel
           </Button>
           <Button
-            sx={{ color: "inherit" }}
+            sx={{ color: 'inherit' }}
             onClick={handleSubmit}
             disabled={file === null || loading}
           >
-            {loading ? <CircularProgress color="info" size={20} /> : "Submit"}
+            {loading ? <CircularProgress color="info" size={20} /> : 'Submit'}
           </Button>
         </DialogActions>
       </Dialog>

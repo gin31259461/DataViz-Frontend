@@ -1,5 +1,5 @@
-import { DecisionTreePath } from "@/utils/findPath";
-import { create } from "zustand";
+import { DecisionTreePath } from '@/utils/findPath';
+import { create } from 'zustand';
 
 interface ProjectState {
   selectedDataOID: number | undefined;

@@ -1,6 +1,6 @@
-import { useSplitLineStyle } from "@/hooks/useStyles";
-import { Box, Paper, Slide, Tab, Tabs } from "@mui/material";
-import { useState } from "react";
+import { useSplitLineStyle } from '@/hooks/useStyles';
+import { Box, Paper, Slide, Tab, Tabs } from '@mui/material';
+import { useState } from 'react';
 
 export type TabItem = {
   label: string;
@@ -13,14 +13,12 @@ interface TabProps {
 
 const TabSlider: React.FC<TabProps> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
-  const [slideDirection, setSlideDirection] = useState<
-    "left" | "right" | "up" | "down"
-  >("left");
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | 'up' | 'down'>('left');
   const borderStyle = useSplitLineStyle();
 
   const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
-    if (activeTab > newValue) setSlideDirection("right");
-    else if (activeTab < newValue) setSlideDirection("left");
+    if (activeTab > newValue) setSlideDirection('right');
+    else if (activeTab < newValue) setSlideDirection('left');
     setActiveTab(newValue);
   };
 
@@ -47,11 +45,11 @@ const TabSlider: React.FC<TabProps> = ({ tabs }) => {
             key={i}
             sx={{
               mt: 2,
-              display: i === activeTab ? "flex" : "none",
-              justifyContent: "center",
-              alignItems: "center",
+              display: i === activeTab ? 'flex' : 'none',
+              justifyContent: 'center',
+              alignItems: 'center',
               padding: 2,
-              overflow: "hidden",
+              overflow: 'hidden',
             }}
           >
             <Slide

@@ -1,5 +1,5 @@
-import { useSplitLineStyle } from "@/hooks/useStyles";
-import { Box, Card, CardActionArea, CardContent, Tooltip } from "@mui/material";
+import { useSplitLineStyle } from '@/hooks/useStyles';
+import { Box, Card, CardActionArea, CardContent, Tooltip } from '@mui/material';
 
 interface IconCardProps {
   title: string;
@@ -9,13 +9,10 @@ interface IconCardProps {
 export default function IconCard({ children, title, onClick }: IconCardProps) {
   return (
     <Tooltip title={title}>
-      <Card
-        sx={{ height: "max-content", border: useSplitLineStyle() }}
-        onClick={onClick}
-      >
+      <Card sx={{ height: 'max-content', border: useSplitLineStyle() }} onClick={onClick}>
         <CardActionArea>
           <CardContent sx={{ padding: 0.5 }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>{children}</Box>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>{children}</Box>
           </CardContent>
         </CardActionArea>
       </Card>

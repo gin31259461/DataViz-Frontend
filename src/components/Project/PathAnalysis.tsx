@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useProjectStore } from "@/hooks/store/useProjectStore";
-import { trpc } from "@/server/trpc";
-import { findPaths } from "@/utils/findPath";
-import { roundNumberToDecimalPlaces } from "@/utils/math";
-import { FormControlLabel, Radio } from "@mui/material";
-import { ChangeEvent, useState } from "react";
-import LoadingWithTitle from "../LoadingWithTitle";
-import PathTable from "./PathTable";
+import { useProjectStore } from '@/hooks/store/useProjectStore';
+import { trpc } from '@/server/trpc';
+import { findPaths } from '@/utils/findPath';
+import { roundNumberToDecimalPlaces } from '@/utils/math';
+import { FormControlLabel, Radio } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
+import LoadingWithTitle from '../LoadingWithTitle';
+import PathTable from './PathTable';
 
 export default function PathAnalysis() {
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
@@ -18,16 +18,12 @@ export default function PathAnalysis() {
     target: target,
     features: features,
   });
-  const paths = findPaths(graph.data).sort(
-    (a, b) => a.path.length - b.path.length,
-  );
+  const paths = findPaths(graph.data).sort((a, b) => a.path.length - b.path.length);
   const setPathID = useProjectStore((state) => state.setPathID);
   const setPath = useProjectStore((state) => state.setPath);
   const selectedPathID = useProjectStore((state) => state.selectedPathID);
 
-  const [ratioChecked, setRatioChecked] = useState<string | undefined>(
-    selectedPathID,
-  );
+  const [ratioChecked, setRatioChecked] = useState<string | undefined>(selectedPathID);
 
   const handleRatioChange = (
     value: string,
@@ -42,12 +38,12 @@ export default function PathAnalysis() {
   };
 
   const columns = [
-    "ID",
-    "路徑長度",
-    "目標分布 (低)",
-    "目標分布 (中間)",
-    "目標分布 (高)",
-    "選擇路徑",
+    'ID',
+    '路徑長度',
+    '目標分布 (低)',
+    '目標分布 (中間)',
+    '目標分布 (高)',
+    '選擇路徑',
   ];
 
   const rows = paths.map((o, i) => {
@@ -61,9 +57,7 @@ export default function PathAnalysis() {
         key={i}
         control={
           <Radio
-            onChange={(event, checked) =>
-              handleRatioChange(i.toString(), event, checked)
-            }
+            onChange={(event, checked) => handleRatioChange(i.toString(), event, checked)}
             checked={ratioChecked == i.toString()}
             color="info"
           />

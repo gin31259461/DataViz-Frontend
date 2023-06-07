@@ -1,29 +1,18 @@
-"use client";
+'use client';
 
-import { useProjectStore } from "@/hooks/store/useProjectStore";
-import { useSplitLineStyle } from "@/hooks/useStyles";
-import { tokens } from "@/utils/theme";
-import {
-  Box,
-  Button,
-  Grid,
-  Step,
-  StepLabel,
-  Stepper,
-  useTheme,
-} from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useProjectStore } from '@/hooks/store/useProjectStore';
+import { useSplitLineStyle } from '@/hooks/useStyles';
+import { tokens } from '@/utils/theme';
+import { Box, Button, Grid, Step, StepLabel, Stepper, useTheme } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface StepperComponentProps {
   steps: string[];
   components: React.ReactNode[];
 }
 
-const StepperComponent: React.FC<StepperComponentProps> = ({
-  steps,
-  components,
-}) => {
+const StepperComponent: React.FC<StepperComponentProps> = ({ steps, components }) => {
   const [activeStep, setActiveStep] = useState(0);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -50,18 +39,18 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
   };
 
   const stepStyle = {
-    "& .Mui-active": {
-      "& .MuiStepIcon-root": {
+    '& .Mui-active': {
+      '& .MuiStepIcon-root': {
         color: colors.blueAccent[500],
       },
     },
-    "& .Mui-completed": {
-      "& .MuiStepIcon-root": {
+    '& .Mui-completed': {
+      '& .MuiStepIcon-root': {
         color: colors.greenAccent[500],
       },
     },
-    "& .Mui-disabled": {
-      "& .MuiStepIcon-root": {
+    '& .Mui-disabled': {
+      '& .MuiStepIcon-root': {
         color: theme.palette.action.disabled,
       },
     },
@@ -78,11 +67,11 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
           borderBottom: borderStyle,
         }}
       >
-        <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
           <Stepper
             activeStep={activeStep}
             orientation="horizontal"
-            sx={{ ...stepStyle, width: "100%" }}
+            sx={{ ...stepStyle, width: '100%' }}
           >
             {steps.map((label, index) => (
               <Step key={index}>
@@ -92,14 +81,12 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
           </Stepper>
         </Grid>
         <Grid container>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button
               disabled={backButtonDisabled()}
               color="info"
-              sx={{ position: "absolute", fontSize: 15, left: 20 }}
-              onClick={() =>
-                setActiveStep((prev) => (prev > 0 ? prev - 1 : prev))
-              }
+              sx={{ position: 'absolute', fontSize: 15, left: 20 }}
+              onClick={() => setActiveStep((prev) => (prev > 0 ? prev - 1 : prev))}
               variant="outlined"
             >
               Back
@@ -107,19 +94,14 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
             <Button
               disabled={nextButtonDisabled()}
               color="info"
-              sx={{ position: "absolute", fontSize: 15, right: 20 }}
+              sx={{ position: 'absolute', fontSize: 15, right: 20 }}
               onClick={() => {
-                if (activeStep === steps.length - 1)
-                  router.push("/mgt/infographic");
-                setActiveStep((prev) =>
-                  prev < steps.length - 1 ? prev + 1 : prev,
-                );
+                if (activeStep === steps.length - 1) router.push('/mgt/infographic');
+                setActiveStep((prev) => (prev < steps.length - 1 ? prev + 1 : prev));
               }}
-              variant={
-                activeStep !== steps.length - 1 ? "outlined" : "contained"
-              }
+              variant={activeStep !== steps.length - 1 ? 'outlined' : 'contained'}
             >
-              {activeStep !== steps.length - 1 ? "Next" : "Confirm"}
+              {activeStep !== steps.length - 1 ? 'Next' : 'Confirm'}
             </Button>
           </Box>
         </Grid>
@@ -127,10 +109,10 @@ const StepperComponent: React.FC<StepperComponentProps> = ({
       <Grid
         container
         sx={{
-          display: "flex",
+          display: 'flex',
           padding: 2,
-          height: "calc(100vh - 140px - 80px)",
-          overflowX: "auto",
+          height: 'calc(100vh - 140px - 80px)',
+          overflowX: 'auto',
         }}
       >
         {components[activeStep]}

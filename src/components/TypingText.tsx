@@ -1,7 +1,7 @@
-import effect from "@/styles/effect.module.scss";
-import { tokens } from "@/utils/theme";
-import { useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import effect from '@/styles/effect.module.scss';
+import { tokens } from '@/utils/theme';
+import { useTheme } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export default function TypingTex() {
   const [typingAnimation, setTypingAnimation] = useState(true);
@@ -34,31 +34,28 @@ export default function TypingTex() {
   }, [typingAnimation]);
 
   useEffect(() => {
-    if (document.getElementById("typing-text") !== null) {
+    if (document.getElementById('typing-text') !== null) {
       document
-        .getElementById("typing-text")
-        ?.style.setProperty("--cursor-color", color.greenAccent[500]);
+        .getElementById('typing-text')
+        ?.style.setProperty('--cursor-color', color.greenAccent[500]);
       document
-        .getElementById("typing-text")
-        ?.style.setProperty(
-          "--background-color",
-          theme.palette.background.default,
-        );
+        .getElementById('typing-text')
+        ?.style.setProperty('--background-color', theme.palette.background.default);
     }
   }, [theme.palette.mode, theme.palette.background, color.greenAccent]);
 
   return (
     <div
-      id={"typing-text"}
+      id={'typing-text'}
       className={
-        effect["typing-effect"] +
-        " " +
-        (typingAnimation ? effect["typing"] : effect["deleting"]) +
-        " " +
-        (stopTypingFlag ? effect["flash-border"] : "")
+        effect['typing-effect'] +
+        ' ' +
+        (typingAnimation ? effect['typing'] : effect['deleting']) +
+        ' ' +
+        (stopTypingFlag ? effect['flash-border'] : '')
       }
     >
-      {textFlag ? "Data Visualization" : "Beautiful Infographic"}
+      {textFlag ? 'Data Visualization' : 'Beautiful Infographic'}
     </div>
   );
 }

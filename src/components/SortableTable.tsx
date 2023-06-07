@@ -7,8 +7,8 @@ import {
   TableRow,
   TableSortLabel,
   useTheme,
-} from "@mui/material";
-import { useState } from "react";
+} from '@mui/material';
+import { useState } from 'react';
 
 interface TableSortableProps {
   columns: string[];
@@ -17,16 +17,12 @@ interface TableSortableProps {
 
 const SortableTable: React.FC<TableSortableProps> = ({ columns, rows }) => {
   const [orderby, setOrderby] = useState(columns[0]);
-  const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("desc");
+  const [orderDirection, setOrderDirection] = useState<'asc' | 'desc'>('desc');
   const theme = useTheme();
 
   const handleSort = (currentOrderby: string) => {
     setOrderDirection((prev) => {
-      return currentOrderby !== orderby
-        ? prev
-        : prev === "asc"
-        ? "desc"
-        : "asc";
+      return currentOrderby !== orderby ? prev : prev === 'asc' ? 'desc' : 'asc';
     });
     setOrderby(currentOrderby);
   };
@@ -36,7 +32,7 @@ const SortableTable: React.FC<TableSortableProps> = ({ columns, rows }) => {
       <Table>
         <TableHead
           sx={{
-            position: "sticky",
+            position: 'sticky',
             top: 0,
             backgroundColor: theme.palette.background.default,
             zIndex: 10,
@@ -65,7 +61,7 @@ const SortableTable: React.FC<TableSortableProps> = ({ columns, rows }) => {
               <TableRow
                 key={i}
                 sx={{
-                  "&:hover": { backgroundColor: theme.palette.action.hover },
+                  '&:hover': { backgroundColor: theme.palette.action.hover },
                 }}
               >
                 {row.map((cell, i) => {

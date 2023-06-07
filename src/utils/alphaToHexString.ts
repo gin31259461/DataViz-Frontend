@@ -6,7 +6,7 @@ export default function alphaToHexString(percentage: number): string {
   const alpha = Math.round((validPercentage / 100) * 255);
 
   // 將 alpha 轉換為十六進位字串
-  const hexAlpha = alpha.toString(16).padStart(2, "0");
+  const hexAlpha = alpha.toString(16).padStart(2, '0');
 
   // 回傳十六進位 alpha 字串
   return hexAlpha;

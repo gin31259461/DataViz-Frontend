@@ -1,6 +1,6 @@
-import { Grid, useTheme } from "@mui/material";
-import GalleryCard from "./GalleryCard";
-import imgPath from "./imgPath.json";
+import { Grid, useTheme } from '@mui/material';
+import GalleryCard from './GalleryCard';
+import imgPath from './imgPath.json';
 
 export default function Gallery() {
   const theme = useTheme();
@@ -12,7 +12,7 @@ export default function Gallery() {
             <GalleryCard
               key={i}
               title={o.title}
-              src={theme.palette.mode === "light" ? o.light_src : o.dark_src}
+              src={theme.palette.mode === 'light' ? o.light_src : o.dark_src}
               href={o.href}
             />
           </Grid>

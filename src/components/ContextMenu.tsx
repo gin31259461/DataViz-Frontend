@@ -1,5 +1,5 @@
-import { Menu, MenuItem, PopoverPosition } from "@mui/material";
-import { useState } from "react";
+import { Menu, MenuItem, PopoverPosition } from '@mui/material';
+import { useState } from 'react';
 
 interface ContextMenuProps {
   id: string;
@@ -7,14 +7,8 @@ interface ContextMenuProps {
   maxWidth?: number | string;
 }
 
-export default function ContextMenu({
-  children,
-  maxWidth,
-  id,
-}: ContextMenuProps) {
-  const [anchorPosition, setAnchorPosition] = useState<
-    PopoverPosition | undefined
-  >(undefined);
+export default function ContextMenu({ children, maxWidth, id }: ContextMenuProps) {
+  const [anchorPosition, setAnchorPosition] = useState<PopoverPosition | undefined>(undefined);
 
   const handleContextMenu = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -38,7 +32,7 @@ export default function ContextMenu({
       <div>{children}</div>
 
       <Menu
-        anchorReference={"anchorPosition"}
+        anchorReference={'anchorPosition'}
         anchorPosition={anchorPosition}
         open={Boolean(anchorPosition)}
         onClose={handleCloseMenu}
