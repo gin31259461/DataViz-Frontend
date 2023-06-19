@@ -5,7 +5,7 @@ import json
 from flask import Flask, request
 from flask_cors import CORS
 from sqlalchemy import create_engine, text
-from decisionTree import csvDataFrameToDecisionTree
+from decisionTree import decisionTreeHandler
 
 server = Flask(__name__)
 CORS(server)
@@ -32,7 +32,7 @@ def dataToSQL(data: DataFrame, lastID="0"):
 
 
 @server.route("/api/uploadCsv", methods=["POST"])
-def uploadCsv():
+def uploadCsvServer():
     lastID = request.form["lastID"]
     if request.files:
         csvFile = request.files["file"]
@@ -50,11 +50,11 @@ def uploadCsv():
 
 
 @server.route("/api/decisionTree", methods=["GET"])
-def decisionTree():
+def decisionTreeServer():
     result = db.execute(
         text("select * from RawDB.dbo.D" + request.args.get("oid")))
     df = pd.DataFrame(result.fetchall(), columns=result.keys())
-    result = csvDataFrameToDecisionTree(
+    result = decisionTreeHandler(
         df, request.args.get("target"),
         request.args.get("features").split(","))
     return json.dumps(result)

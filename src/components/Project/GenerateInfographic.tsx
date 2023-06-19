@@ -21,6 +21,8 @@ const GenerateInfographic = () => {
     },
   });
 
+  console.log(selectedPath);
+
   const infographic: TabItem[] = [];
   let currentNode: number;
 
@@ -37,7 +39,7 @@ const GenerateInfographic = () => {
     infographic.push({
       label: node.toString(),
       content: (
-        <div key={node}>
+        <div key={node} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           <BarStacked
             data={xyData}
             mapper={{
@@ -51,7 +53,7 @@ const GenerateInfographic = () => {
               color: undefined,
             }}
           />
-          <Typography variant="h4" sx={{ textAlign: 'center' }}>
+          <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
             {selectedPath.nodeLabel[currentNode] && selectedPath.nodeLabel[currentNode][1]}
           </Typography>
         </div>

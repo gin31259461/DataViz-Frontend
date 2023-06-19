@@ -1,4 +1,4 @@
-import { nodeDataProps } from '@/utils/findPath';
+import { nodeDataProps } from '@/utils/pathParser';
 import { convertBigIntToString } from '@/utils/parsers';
 import { z } from 'zod';
 import { createTRPCRouter, publicProcedure } from '../trpc';

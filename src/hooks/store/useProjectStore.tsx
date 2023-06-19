@@ -1,4 +1,4 @@
-import { DecisionTreePath } from '@/utils/findPath';
+import { DecisionTreePath } from '@/utils/pathParser';
 import { create } from 'zustand';
 
 interface ProjectState {
@@ -12,6 +12,7 @@ interface ProjectState {
   setDataOID: (oid: number) => void;
   setPath: (path: DecisionTreePath) => void;
   setPathID: (pathID: string) => void;
+  clear: () => void;
 }
 
 export const useProjectStore = create<ProjectState>()((set, get) => ({
@@ -25,4 +26,12 @@ export const useProjectStore = create<ProjectState>()((set, get) => ({
   setDataOID: (oid: number) => set({ selectedDataOID: oid }),
   setPath: (path: DecisionTreePath) => set({ selectedPath: path }),
   setPathID: (pathID: string) => set({ selectedPathID: pathID }),
+  clear: () =>
+    set({
+      selectedDataOID: undefined,
+      target: undefined,
+      features: undefined,
+      selectedPathID: undefined,
+      selectedPath: undefined,
+    }),
 }));

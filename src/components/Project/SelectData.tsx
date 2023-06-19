@@ -11,11 +11,13 @@ export default function SelectData() {
   const mid = useUserStore((state) => state.mid);
   const selectedDataOID = useProjectStore((state) => state.selectedDataOID);
   const setDataOID = useProjectStore((state) => state.setDataOID);
+  const clear = useProjectStore((state) => state.clear);
   const allData = trpc.dataObject.getAllDataObject.useQuery(mid);
   const userDataTable = trpc.dataObject.getDataTable.useQuery(selectedDataOID);
 
   const handleSelectChange = (value: string) => {
     if (allData.isSuccess) {
+      clear();
       setDataOID(Number(value.split('.')[0]));
     }
   };

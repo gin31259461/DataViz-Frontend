@@ -1,14 +1,15 @@
+from lightgbm import LGBMClassifier, create_tree_digraph
+import graphviz
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.multiclass import OneVsOneClassifier
 from graphviz import Source
 import json
 
 
-def csvDataFrameToDecisionTree(data: pd.DataFrame, target: str, features: list):
+def decisionTreeHandler(data: pd.DataFrame, target: str, features: list):
     mappings = {}
 
     for feature in features:
@@ -29,9 +30,9 @@ def csvDataFrameToDecisionTree(data: pd.DataFrame, target: str, features: list):
     data_target = pd.qcut(data[target], q=num_bins, labels=False)
 
     # split data into training and test datasets
-    X_train, X_test, y_train, y_test = train_test_split(
-        data_feature, data_target, random_state=42, test_size=0.2
-    )
+    # X_train, X_test, y_train, y_test = train_test_split(
+    #     data_feature, data_target, random_state=42, test_size=0.2
+    # )
 
     # create new decision tree model
     # gini : CART algorithm, entropy : ID3 algorithm
@@ -62,11 +63,17 @@ def csvDataFrameToDecisionTree(data: pd.DataFrame, target: str, features: list):
     # best_ccp_alpha = ccp_alphas[np.argmax(test_scores)]
     # # ---------------------------------------- end
 
+    # test code ##################################
+    model = LGBMClassifier(boosting_type="gbdt", random_state=0, max_depth=max_depth)
+    model.fit(data_feature, data_target)
+    graph: graphviz.Digraph = create_tree_digraph(model, tree_index=0, show_info=["split_gain"], orientation="vertical")
+    graph.render(filename="temp/test.dot", format="dot", outfile="temp/test.dot")
+    ##############################################
+
     clf = (DecisionTreeClassifier(
         criterion="entropy",
-        random_state=42,
+        random_state=0,
         max_depth=max_depth,
-        min_samples_leaf=3,
         # ccp_alpha=best_ccp_alpha,  # Cost-Complexity Pruning
     ))
     clf.fit(data_feature, data_target)
@@ -75,7 +82,6 @@ def csvDataFrameToDecisionTree(data: pd.DataFrame, target: str, features: list):
         clf,
         out_file="temp/temp.dot",
         feature_names=features,
-        # class_names=target,
         max_depth=max_depth,
         label="all",
         rounded=True,

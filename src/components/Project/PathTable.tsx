@@ -1,20 +1,20 @@
 import { useProjectStore } from '@/hooks/store/useProjectStore';
 import { trpc } from '@/server/trpc';
-import { DecisionTreePath } from '@/utils/findPath';
+import { DecisionTreePath } from '@/utils/pathParser';
 import { tokens } from '@/utils/theme';
 import {
-  Box,
-  Button,
-  Collapse,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Typography,
-  useTheme,
+    Box,
+    Button,
+    Collapse,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TableSortLabel,
+    Typography,
+    useTheme,
 } from '@mui/material';
 import { useState } from 'react';
 import HtmlTooltip from '../HtmlTooltip';

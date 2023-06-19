@@ -59,7 +59,14 @@ const TabSlider: React.FC<TabProps> = ({ tabs }) => {
               unmountOnExit
               timeout={500}
             >
-              <Box>{tab.content}</Box>
+              <Box
+                sx={{
+                  maxWidth: '100%',
+                  overflowWrap: 'anywhere',
+                }}
+              >
+                {tab.content}
+              </Box>
             </Slide>
           </Box>
         );
