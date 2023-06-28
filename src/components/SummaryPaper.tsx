@@ -16,7 +16,7 @@ const SummaryPaper: React.FC<SummaryPaperProps> = ({ title, children }) => {
           gap: 2,
         }}
       >
-        <Typography variant="h4">{title}</Typography>
+        <Typography variant="h6">{title}</Typography>
         {children}
       </Box>
     </Paper>

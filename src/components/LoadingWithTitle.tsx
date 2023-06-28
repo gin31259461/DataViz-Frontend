@@ -16,7 +16,7 @@ const LoadingWithTitle: React.FC<LoadingWithTitleProps> = ({ title }) => {
         gap: 2,
       }}
     >
-      <Typography variant="h3">{title}</Typography>
+      <Typography variant="h6">{title}</Typography>
       <CircularProgress color="info" />
     </Box>
   );

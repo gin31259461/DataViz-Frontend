@@ -14,7 +14,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableFooter,
   TableHead,
   TablePagination,
@@ -84,7 +83,7 @@ export default function DataPanel(props: ServerProps) {
     start: start + 1,
     counts: counts,
   });
-  const dataTable = trpc.dataObject.getDataTable.useQuery(selectDataOid);
+  const dataTable = trpc.dataObject.getDataTableTop100.useQuery(selectDataOid);
   const lastObjectID = trpc.dataObject.getLastObjectID.useQuery(mid);
   const postData = trpc.dataObject.postData.useMutation();
   const deleteData = trpc.dataObject.deleteData.useMutation();
@@ -178,99 +177,97 @@ export default function DataPanel(props: ServerProps) {
       </Grid>
 
       <Grid container padding={2}>
-        <TableContainer>
-          <Table>
-            <TableHead
+        <Table>
+          <TableHead
+            sx={{
+              position: 'sticky',
+              top: 60,
+              zIndex: 5,
+              backgroundColor: theme.palette.background.default,
+            }}
+          >
+            <TableRow
               sx={{
-                position: 'sticky',
-                top: 0,
-                zIndex: 5,
-                backgroundColor: theme.palette.background.default,
+                color: colors.greenAccent[500],
               }}
             >
+              <TableCell align="left" sx={{ color: 'inherit', width: '10%' }}>
+                <div style={{ display: 'flex' }}>
+                  ID
+                  <TableSortLabel
+                    active={orderBy === 'id'}
+                    direction={orderDirection}
+                    onClick={() => handleSort('id')}
+                  ></TableSortLabel>
+                </div>
+              </TableCell>
+              <TableCell sx={{ color: 'inherit', width: '50%' }}>
+                <div style={{ display: 'flex' }}>
+                  Name
+                  <TableSortLabel
+                    active={orderBy === 'name'}
+                    direction={orderDirection}
+                    onClick={() => handleSort('name')}
+                  ></TableSortLabel>
+                </div>
+              </TableCell>
+              <TableCell sx={{ color: 'inherit', width: '20%' }}>
+                <div style={{ display: 'flex' }}>
+                  Last Updated
+                  <TableSortLabel
+                    active={orderBy === 'lastModified'}
+                    direction={orderDirection}
+                    onClick={() => handleSort('lastModified')}
+                  ></TableSortLabel>
+                </div>
+              </TableCell>
+              <TableCell align="right" sx={{ color: 'inherit', width: '20%' }}>
+                Actions
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {someDataObject.data?.map((dataSet) => (
               <TableRow
+                key={dataSet.id}
                 sx={{
-                  color: colors.greenAccent[500],
+                  '&:hover': { backgroundColor: theme.palette.action.hover },
                 }}
               >
-                <TableCell align="left" sx={{ color: 'inherit', width: '10%' }}>
-                  <div style={{ display: 'flex' }}>
-                    ID
-                    <TableSortLabel
-                      active={orderBy === 'id'}
-                      direction={orderDirection}
-                      onClick={() => handleSort('id')}
-                    ></TableSortLabel>
-                  </div>
-                </TableCell>
-                <TableCell sx={{ color: 'inherit', width: '50%' }}>
-                  <div style={{ display: 'flex' }}>
-                    Name
-                    <TableSortLabel
-                      active={orderBy === 'name'}
-                      direction={orderDirection}
-                      onClick={() => handleSort('name')}
-                    ></TableSortLabel>
-                  </div>
-                </TableCell>
-                <TableCell sx={{ color: 'inherit', width: '20%' }}>
-                  <div style={{ display: 'flex' }}>
-                    Last Updated
-                    <TableSortLabel
-                      active={orderBy === 'lastModified'}
-                      direction={orderDirection}
-                      onClick={() => handleSort('lastModified')}
-                    ></TableSortLabel>
-                  </div>
-                </TableCell>
-                <TableCell align="right" sx={{ color: 'inherit', width: '20%' }}>
-                  Actions
+                <TableCell>{dataSet.id}</TableCell>
+                <TableCell>{dataSet.name}</TableCell>
+                <TableCell>{dataSet.lastModified}</TableCell>
+                <TableCell align="right">
+                  <Tooltip title={'Edit data'}>
+                    <IconButton onClick={() => handleEdit(dataSet.id)}>
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <ConfirmDeleteButton
+                    onConfirm={handleDelete}
+                    deleteID={dataSet.id}
+                  ></ConfirmDeleteButton>
+                  <Tooltip title={'View data'}>
+                    <IconButton onClick={() => handleDataSetClick(dataSet.id)}>
+                      <VisibilityIcon />
+                    </IconButton>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {someDataObject.data?.map((dataSet) => (
-                <TableRow
-                  key={dataSet.id}
-                  sx={{
-                    '&:hover': { backgroundColor: theme.palette.action.hover },
-                  }}
-                >
-                  <TableCell>{dataSet.id}</TableCell>
-                  <TableCell>{dataSet.name}</TableCell>
-                  <TableCell>{dataSet.lastModified}</TableCell>
-                  <TableCell align="right">
-                    <Tooltip title={'Edit data'}>
-                      <IconButton onClick={() => handleEdit(dataSet.id)}>
-                        <EditIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <ConfirmDeleteButton
-                      onConfirm={handleDelete}
-                      deleteID={dataSet.id}
-                    ></ConfirmDeleteButton>
-                    <Tooltip title={'View data'}>
-                      <IconButton onClick={() => handleDataSetClick(dataSet.id)}>
-                        <VisibilityIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  onPageChange={handlePageChange}
-                  rowsPerPageOptions={[]}
-                  count={dataCounts.data ?? 0}
-                  rowsPerPage={counts}
-                  page={page}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                onPageChange={handlePageChange}
+                rowsPerPageOptions={[]}
+                count={dataCounts.data ?? 0}
+                rowsPerPage={counts}
+                page={page}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
       </Grid>
 
       <Suspense>

@@ -41,7 +41,7 @@ const StepperComponent: React.FC<StepperComponentProps> = ({ steps, components }
   const stepStyle = {
     '& .Mui-active': {
       '& .MuiStepIcon-root': {
-        color: colors.blueAccent[500],
+        color: theme.palette.info.main,
       },
     },
     '& .Mui-completed': {

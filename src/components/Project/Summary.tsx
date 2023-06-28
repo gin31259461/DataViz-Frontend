@@ -35,11 +35,7 @@ const Summary = () => {
         selectedPath.path.map((nodeID, i) => {
           const currentNodeID = selectedPath.path[i - 1];
           return (
-            <Typography
-              key={i}
-              variant="body1"
-              sx={{ textEmphasis: '...', textOverflow: 'ellipsis' }}
-            >
+            <Typography key={i} variant="body1" sx={{ overflowWrap: 'break-word' }}>
               {'Node ' +
                 nodeID +
                 ' : ' +
@@ -71,7 +67,7 @@ const Summary = () => {
         padding: 2,
       }}
     >
-      <Typography variant="h1">Summary analysis result</Typography>
+      <Typography variant="h4">Summary analysis result</Typography>
       <Box
         sx={{
           marginTop: 5,

@@ -2,8 +2,7 @@
 
 import { useProjectStore } from '@/hooks/store/useProjectStore';
 import { trpc } from '@/server/trpc';
-import { objectToXYData } from '@/utils/parsers';
-import { BarStacked } from '@D3Chart';
+import { Pie } from '@D3Chart';
 import { Typography } from '@mui/material';
 import LoadingWithTitle from '../LoadingWithTitle';
 import TabSlider, { TabItem } from '../TabSlider';
@@ -21,8 +20,6 @@ const GenerateInfographic = () => {
     },
   });
 
-  console.log(selectedPath);
-
   const infographic: TabItem[] = [];
   let currentNode: number;
 
@@ -33,23 +30,34 @@ const GenerateInfographic = () => {
       return;
     }
 
-    const nodeData = nodes.data[node];
-    const xyData = objectToXYData(nodeData[0]);
+    const distribution = selectedPath.nodeLabel[node][selectedPath.nodeLabel[node].length - 1]
+      .replace(/[\[\],]/g, '')
+      .split(' ')
+      .slice(2);
+
+    console.log(distribution);
+
+    // const nodeData = nodes.data[node];
+    // const xyData = objectToXYData(nodeData[0]);
+    const data = [
+      { x: '低', y: Number(distribution[0]) },
+      { x: '中', y: Number(distribution[1]) },
+      { x: '高', y: Number(distribution[2]) },
+    ];
 
     infographic.push({
       label: node.toString(),
       content: (
         <div key={node} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-          <BarStacked
-            data={xyData}
+          <Pie
+            data={data}
             mapper={{
               getX: (d: any) => d.x,
-              keys: ['y'],
+              getY: (d: any) => d.y,
             }}
             base={{
               width: 1000,
-              height: 300,
-              title: target ?? '',
+              height: 500,
               color: undefined,
             }}
           />

@@ -14,7 +14,7 @@ const AllCompleted = () => {
         gap: 2,
       }}
     >
-      <Typography variant="h1">All completed</Typography>
+      <Typography variant="h4">All completed</Typography>
       <DoneAllIcon color="info" sx={{ fontSize: 80 }} />
     </Box>
   );

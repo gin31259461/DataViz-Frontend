@@ -53,6 +53,7 @@ export function pathParser(graph: DecisionTreeGraph, rootId: number = 0): Decisi
       targetValue.forEach((n) => (sum += n));
 
       const nodeLabel: Record<number, string[]> = {};
+      nodeLabel[path[path.length - 1]] = node.labels;
 
       /*
         如果下一個 Node ID 是上個 +1 則是 true，不然的話是 false

@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import { Provider } from './provider';
 import '@/styles/global.css';
 import { TrpcProvider } from '../components/TrpcProvider';
+import style from '../styles/rootLayout.module.css';
 
 export const metadata = {
   title: 'DataViz',
@@ -13,17 +14,17 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <TrpcProvider>
-      <html lang="en">
-        <body className="scrollbar-container">
+    <html lang="en" className={style['custom-font']}>
+      <body className="scrollbar-container">
+        <TrpcProvider>
           <Provider>
             <div>
               <Navbar />
               {children}
             </div>
           </Provider>
-        </body>
-      </html>
-    </TrpcProvider>
+        </TrpcProvider>
+      </body>
+    </html>
   );
 }

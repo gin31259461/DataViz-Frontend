@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Optima';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Optima'), url('../font/optima/OPTIMA.woff') format('woff');
+  unicode-range: U+0020-007E;
+}
+
+@font-face {
+  font-family: 'TaipeiSans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('TaipeiSans'), url('../font/taipei-sans/TaipeiSansTCBeta-Regular.woff') format('woff');
+  unicode-range: U+4E00-9FFF;
+}
+
 /* 捲軸軌道（整個捲軸區域） */
 ::-webkit-scrollbar-track {
   background-color: #f1f1f1;

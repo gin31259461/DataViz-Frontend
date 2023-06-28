@@ -1,5 +1,6 @@
 'use client';
 
+import Footer from '@/components/Footer';
 import Loader from '@/components/Loader';
 import TypingText from '@/components/TypingText';
 import { useSplitLineStyle } from '@/hooks/useStyles';
@@ -8,7 +9,6 @@ import { Box, Container, Grid, Typography, useTheme } from '@mui/material';
 import { lazy, Suspense } from 'react';
 
 const HomeGallery = lazy(() => import('@/components/Gallery'));
-const Footer = lazy(() => import('@/components/Footer'));
 
 export default function Home() {
   const theme = useTheme();
@@ -20,7 +20,7 @@ export default function Home() {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Typography
-              variant="h1"
+              variant="h3"
               sx={{
                 color: color.greenAccent[500],
                 marginTop: 3,
@@ -31,7 +31,7 @@ export default function Home() {
               Introducing
             </Typography>
             <Typography
-              variant="h1"
+              variant="h3"
               sx={{
                 color: color.greenAccent[500],
                 marginBottom: 3,
@@ -53,14 +53,14 @@ export default function Home() {
           </Grid>
         </Grid>
       </Box>
-      <Box>
-        <Typography variant="h1" sx={{ marginTop: 3, marginBottom: 3, textAlign: 'center' }}>
+      <div style={{ paddingBottom: '24px' }}>
+        <Typography variant="h3" sx={{ marginTop: 3, marginBottom: 3, textAlign: 'center' }}>
           Chart Library
         </Typography>
         <Suspense fallback={<Loader />}>
           <HomeGallery />
         </Suspense>
-      </Box>
+      </div>
       <Footer />
     </Container>
   );

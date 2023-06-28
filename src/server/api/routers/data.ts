@@ -26,12 +26,19 @@ export const dataObjectRouter = createTRPCRouter({
       });
       return data;
     }),
-  getDataTable: publicProcedure.input(z.number().optional()).query(async ({ input, ctx }) => {
+  getDataTableTop100: publicProcedure.input(z.number().optional()).query(async ({ input, ctx }) => {
     if (input === undefined) return [];
     const query = `SELECT TOP 100 * FROM [RawDB].[dbo].[D${input}]`;
     const data = await ctx.prisma.$queryRawUnsafe<Object[]>(query);
     const convertedData = data.map((obj) => convertBigIntToString(obj));
     return convertedData;
+  }),
+  getDataTableCount: publicProcedure.input(z.number().optional()).query(async ({ input, ctx }) => {
+    if (input === undefined) return 0;
+    type countResult = { count: number };
+    const query = `SELECT count(*) AS count FROM [RawDB].[dbo].[D${input}]`;
+    const result = await ctx.prisma.$queryRawUnsafe<countResult[]>(query);
+    return result[0].count;
   }),
   getAllDataObject: publicProcedure.input(z.number()).query(async ({ input, ctx }) => {
     const result = await ctx.prisma.object.findMany({

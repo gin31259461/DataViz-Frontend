@@ -67,7 +67,7 @@ def decisionTreeHandler(data: pd.DataFrame, target: str, features: list):
     model = LGBMClassifier(boosting_type="gbdt", random_state=0, max_depth=max_depth)
     model.fit(data_feature, data_target)
     graph: graphviz.Digraph = create_tree_digraph(model, tree_index=0, show_info=["split_gain"], orientation="vertical")
-    graph.render(filename="temp/test.dot", format="dot", outfile="temp/test.dot")
+    graph.render(filename="test", directory="temp/", format="dot")
     ##############################################
 
     clf = (DecisionTreeClassifier(

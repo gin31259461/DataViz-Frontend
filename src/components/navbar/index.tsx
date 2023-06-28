@@ -3,7 +3,7 @@
 import { useSplitLineStyle } from '@/hooks/useStyles';
 import style from '@/styles/navbar.module.scss';
 import styleStore from '@/styles/store.module.scss';
-import { ColorModeContext, tokens } from '@/utils/theme';
+import { ColorModeContext } from '@/utils/theme';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
@@ -22,7 +22,6 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const avatarMenuOpen = Boolean(anchorEl);
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
 
   const itemList1 = ['管理面板', '新專案', '用戶設置', '反饋', '登入/註冊', 'API 服務'];
@@ -49,18 +48,18 @@ export default function Navbar() {
   };
 
   return (
-    <div className={style['container']}>
-      <div
-        className={style['navbar-container']}
-        style={{
-          backgroundColor:
-            theme.palette.mode === 'dark' ? 'rgb(20, 27, 45, 0.7)' : 'rgb(252, 252, 252, 0.8)',
-          borderBottom: `${useSplitLineStyle()}`,
-        }}
-      >
+    <div
+      className={style['container']}
+      style={{
+        backgroundColor:
+          theme.palette.mode === 'dark' ? 'rgb(20, 27, 45, 0.7)' : 'rgb(252, 252, 252, 0.8)',
+        borderBottom: `${useSplitLineStyle()}`,
+      }}
+    >
+      <div className={style['navbar-container']}>
         <div className={style['icon']}>
           <Link onClick={handleClose} href={'/'} className={style['link']} title={''}>
-            <DataVizIcon color={colors.greenAccent[500]}></DataVizIcon>
+            <DataVizIcon color={theme.palette.primary.main}></DataVizIcon>
           </Link>
         </div>
 
